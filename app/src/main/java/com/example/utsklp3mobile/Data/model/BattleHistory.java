@@ -1,10 +1,10 @@
-package com.example.utsklp3mobile.data.model;
+package com.example.utsklp3mobile.Data.model;
 
 public class BattleHistory {
     private int id;
     private String lawan;
     private String mataKuliah;
-    private String hasil;
+    private String hasil; // "Menang" atau "Kalah"
     private int poinDidapat;
     private String tanggal;
 

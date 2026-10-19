@@ -1,4 +1,4 @@
-package com.example.utsklp3mobile.data.model;
+package com.example.utsklp3mobile.Data.model;
 
 public class Question {
     private int id;
