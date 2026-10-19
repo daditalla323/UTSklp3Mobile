@@ -16,9 +16,9 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextInputEditText etEmail, etPassword;
+    private TextInputEditText etUsername, etPassword;
     private Button btnLogin, btnGoogleLogin;
-    private TextView tvRegisterRedirect;
+    private TextView tvRegister;
     private UserRepository userRepository;
 
     @Override
@@ -28,11 +28,11 @@ public class LoginActivity extends AppCompatActivity {
 
         userRepository = new UserRepository(this);
 
-        etEmail = findViewById(R.id.etEmail);
+        etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
-        tvRegisterRedirect = findViewById(R.id.tvRegisterRedirect);
+        tvRegister = findViewById(R.id.tvRegister);
 
         btnLogin.setOnClickListener(v -> performLogin());
 
@@ -40,37 +40,37 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Sign in with Google clicked", Toast.LENGTH_SHORT).show()
         );
 
-        tvRegisterRedirect.setOnClickListener(v -> {
+        tvRegister.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
     }
 
     private void performLogin() {
-        String email = etEmail.getText() != null ? etEmail.getText().toString().trim() : "";
+        String username = etUsername.getText() != null ? etUsername.getText().toString().trim() : "";
         String password = etPassword.getText() != null ? etPassword.getText().toString().trim() : "";
 
-        if (TextUtils.isEmpty(email)) {
-            etEmail.setError("Email is required");
-            etEmail.requestFocus();
+        if (TextUtils.isEmpty(username)) {
+            etUsername.setError("Nama Pengguna / Email wajib diisi");
+            etUsername.requestFocus();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            etPassword.setError("Password is required");
+            etPassword.setError("Kata sandi wajib diisi");
             etPassword.requestFocus();
             return;
         }
 
-        // Ambil nama dari bagian depan email (sebelum @)
-        String userName = email.contains("@") ? email.split("@")[0] : email;
+        // Ambil nama pengguna (sebelum @ jika memasukkan email)
+        String userName = username.contains("@") ? username.split("@")[0] : username;
 
         // Buat/ambil user di database
         if (userRepository.getUserByName(userName) == null) {
             userRepository.insertUser(userName);
         }
 
-        Toast.makeText(this, "Login successful! Welcome " + userName, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Login berhasil! Selamat datang " + userName, Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("USER_NAME", userName);
