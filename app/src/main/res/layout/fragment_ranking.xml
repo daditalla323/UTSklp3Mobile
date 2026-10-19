@@ -1,11 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#D0E7E6"
+    tools:context=".ui.ranking.RankingFragment">
 
+    <!-- ================= HEADER SECTION ================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#293681"
+        android:paddingBottom="24dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Logo QBA Kecil di Pojok Kiri -->
+        <ImageView
+            android:id="@+id/ivLogoQBA"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/logo_qba"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Judul Header -->
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Papan Peringkat"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivLogoQBA"
+            app:layout_constraintStart_toEndOf="@+id/ivLogoQBA"
+            app:layout_constraintTop_toTopOf="@+id/ivLogoQBA" />
+
+        <!-- Maskot QBA Besar di Kanan -->
+        <ImageView
+            android:id="@+id/ivMaskot"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/maskot_qba"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Teks Sapaan / Subtitle -->
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="Lihat siapa yang mendominasi Arena hari ini! Teruslah berlatih untuk menggeser posisi mereka."
+            android:textColor="#95CCDD"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@+id/ivMaskot"
+            app:layout_constraintStart_toStartOf="@+id/tvHeaderTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeaderTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ================= TOP 3 PODIUM (Opsional, bisa dihapus jika tidak perlu) ================= -->
+    <!-- Jika Anda ingin menampilkan juara 1, 2, 3 secara khusus seperti podium,
+         bagian ini bisa diisi. Untuk sekarang, kita langsung ke List agar lebih simpel. -->
+
+    <!-- ================= DAFTAR PERINGKAT (RECYCLERVIEW) ================= -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRanking"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerContainer"
+        tools:listitem="@layout/item_ranking" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
