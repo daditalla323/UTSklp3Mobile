@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.utsklp3mobile.R;
-import com.example.utsklp3mobile.data.model.BattleHistory;
+import com.example.utsklp3mobile.Data.model.BattleHistory;
 import java.util.ArrayList;
 import java.util.List;
 

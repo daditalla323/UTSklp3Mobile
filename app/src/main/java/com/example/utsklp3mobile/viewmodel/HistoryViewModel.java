@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.utsklp3mobile.data.model.BattleHistory;
-import com.example.utsklp3mobile.data.repository.BattleRepository;
+import com.example.utsklp3mobile.Data.model.BattleHistory;
+import com.example.utsklp3mobile.Data.repository.BattleRepository;
 
 import java.util.List;
 

@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.utsklp3mobile.data.model.Ranking;
-import com.example.utsklp3mobile.data.repository.RankingRepository;
+import com.example.utsklp3mobile.Data.model.Ranking;
+import com.example.utsklp3mobile.Data.repository.RankingRepository;
 
 import java.util.List;
 
