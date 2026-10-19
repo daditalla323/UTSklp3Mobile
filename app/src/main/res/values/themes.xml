@@ -1,12 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.QuizBattleArena" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorSecondary">@color/secondary</item>
-        <item name="android:statusBarColor">@color/primary</item>
-        <item name="android:windowBackground">@color/background</item>
+    <style name="Theme.UTSklp3Mobile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#293681</item>
+        <item name="colorPrimaryVariant">#4274D9</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">#293681</item>
     </style>
-
-    <style name="Theme.QuizBattleArena" parent="Base.Theme.QuizBattleArena" />
 </resources>
