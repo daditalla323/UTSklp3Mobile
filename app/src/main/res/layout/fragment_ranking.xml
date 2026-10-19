@@ -5,36 +5,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D0E7E6"
+    android:background="#F4F8F9"
     tools:context=".ui.ranking.RankingFragment">
 
-    <!-- ================= HEADER SECTION ================= -->
+    <!-- ================= HEADER SECTION (Lengkungan) ================= -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#293681"
-        android:paddingBottom="24dp"
+        android:background="@drawable/bg_header_curve"
+        android:paddingBottom="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Logo QBA Kecil di Pojok Kiri -->
+        <!-- Logo QBA & Judul -->
         <ImageView
             android:id="@+id/ivLogoQBA"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/logo_qba"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Judul Header -->
         <TextView
             android:id="@+id/tvHeaderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="Papan Peringkat"
+            android:layout_marginStart="10dp"
+            android:text="Arena Peringkat"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -42,48 +41,212 @@
             app:layout_constraintStart_toEndOf="@+id/ivLogoQBA"
             app:layout_constraintTop_toTopOf="@+id/ivLogoQBA" />
 
-        <!-- Maskot QBA Besar di Kanan -->
+        <!-- Maskot di Kanan (Agak turun sedikit) -->
         <ImageView
             android:id="@+id/ivMaskot"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/maskot_qba"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Teks Sapaan / Subtitle -->
+        <!-- Teks Subtitle -->
         <TextView
             android:id="@+id/tvSubtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Lihat siapa yang mendominasi Arena hari ini! Teruslah berlatih untuk menggeser posisi mereka."
+            android:text="Lihat siapa yang mendominasi Arena hari ini! Kumpulkan poin dan geser posisi mereka."
             android:textColor="#95CCDD"
-            android:textSize="13sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/ivMaskot"
             app:layout_constraintStart_toStartOf="@+id/tvHeaderTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvHeaderTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- ================= TOP 3 PODIUM (Opsional, bisa dihapus jika tidak perlu) ================= -->
-    <!-- Jika Anda ingin menampilkan juara 1, 2, 3 secara khusus seperti podium,
-         bagian ini bisa diisi. Untuk sekarang, kita langsung ke List agar lebih simpel. -->
+    <!-- ================= SECTION TOP 3 (PODIUM) ================= -->
+    <LinearLayout
+        android:id="@+id/podiumSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/headerContainer">
 
-    <!-- ================= DAFTAR PERINGKAT (RECYCLERVIEW) ================= -->
+        <!-- JUARA 2 (Kiri) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_person"
+                app:tint="#293681"
+                android:background="@drawable/bg_circle_avatar"
+                android:padding="8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dadi"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#293681"
+                android:layout_marginTop="4dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/bg_podium_2_3"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#757575"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.900"
+                    android:textSize="10sp"
+                    android:textColor="#293681"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- JUARA 1 (Tengah - Lebih Tinggi) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!-- Ikon Mahkota (Bisa diganti image mahkota) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="👑"
+                android:textSize="24sp"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_person"
+                app:tint="#293681"
+                android:background="@drawable/bg_circle_avatar"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jojo"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#293681"
+                android:layout_marginTop="4dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/bg_podium_1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#293681"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.400"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#293681"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- JUARA 3 (Kanan) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_person"
+                app:tint="#293681"
+                android:background="@drawable/bg_circle_avatar"
+                android:padding="8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anggun"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#293681"
+                android:layout_marginTop="4dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_podium_2_3"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"/> <!-- Warna Perunggu -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.250"
+                    android:textSize="10sp"
+                    android:textColor="#293681"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- ================= SECTION LIST PERINGKAT 4 KE BAWAH ================= -->
+    <TextView
+        android:id="@+id/tvListTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Peringkat Lainnya"
+        android:textColor="#293681"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/podiumSection" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRanking"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerContainer"
+        app:layout_constraintTop_toBottomOf="@+id/tvListTitle"
         tools:listitem="@layout/item_ranking" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
