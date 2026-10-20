@@ -30,10 +30,14 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Ranking ranking = rankingList.get(position);
-        holder.tvName.setText(ranking.getNama());
-        holder.tvPoints.setText(ranking.getTotalPoin() + " Poin");
         if (holder.tvRankNumber != null) {
-            holder.tvRankNumber.setText(String.valueOf(position + 1));
+            holder.tvRankNumber.setText(String.valueOf(position + 4));
+        }
+        if (holder.tvPlayerName != null) {
+            holder.tvPlayerName.setText(ranking.getNama() != null ? ranking.getNama() : "Player");
+        }
+        if (holder.tvScore != null) {
+            holder.tvScore.setText(ranking.getTotalPoin() + " Poin");
         }
     }
 
@@ -43,13 +47,14 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvRankNumber, tvName, tvPoints;
+        TextView tvRankNumber, tvPlayerName, tvPlayerMatkul, tvScore;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvRankNumber = itemView.findViewById(R.id.tvRankNumber);
-            tvName = itemView.findViewById(R.id.tvPlayerName);
-            tvPoints = itemView.findViewById(R.id.tvScore);
+            tvPlayerName = itemView.findViewById(R.id.tvPlayerName);
+            tvPlayerMatkul = itemView.findViewById(R.id.tvPlayerMatkul);
+            tvScore = itemView.findViewById(R.id.tvScore);
         }
     }
 }

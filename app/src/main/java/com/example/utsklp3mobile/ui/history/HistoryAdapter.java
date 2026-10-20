@@ -32,17 +32,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BattleHistory history = historyList.get(position);
 
-        holder.tvOpponent.setText("Lawan: " + (history.getLawan() != null ? history.getLawan() : "Bot"));
-        holder.tvMatkul.setText(history.getMataKuliah() != null ? history.getMataKuliah() : "-");
-        holder.tvDate.setText(history.getTanggal() != null ? history.getTanggal() : "");
-        holder.tvResult.setText(history.getHasil() != null ? history.getHasil() : "-");
-        holder.tvPoint.setText("+" + history.getPoinDidapat() + " Poin");
+        String resultText = history.getHasil() != null ? history.getHasil().toUpperCase() : "N/A";
+        holder.tvResult.setText(resultText);
 
-        if ("Menang".equalsIgnoreCase(history.getHasil())) {
-            holder.tvResult.setBackgroundColor(Color.parseColor("#2E7D32")); // Green
+        if ("MENANG".equalsIgnoreCase(history.getHasil()) || "WIN".equalsIgnoreCase(history.getHasil())) {
+            holder.tvResult.setTextColor(Color.parseColor("#1B5E20"));
+            holder.tvResult.setBackgroundResource(R.drawable.bg_circle_accent_soft);
         } else {
-            holder.tvResult.setBackgroundColor(Color.parseColor("#C62828")); // Red
+            holder.tvResult.setTextColor(Color.parseColor("#B71C1C"));
+            holder.tvResult.setBackgroundResource(R.drawable.bg_circle_accent_bright);
         }
+
+        holder.tvMatkul.setText(history.getMataKuliah() != null ? history.getMataKuliah() : "Quiz Arena");
+
+        String opponentAndDate = "vs " + (history.getLawan() != null ? history.getLawan() : "Bot");
+        if (history.getTanggal() != null && !history.getTanggal().isEmpty()) {
+            opponentAndDate += " • " + history.getTanggal();
+        }
+        holder.tvOpponent.setText(opponentAndDate);
+
+        holder.tvPoints.setText("+" + history.getPoinDidapat() + " Pts");
     }
 
     @Override
@@ -51,15 +60,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvOpponent, tvMatkul, tvDate, tvResult, tvPoint;
+        TextView tvResult, tvMatkul, tvOpponent, tvPoints;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvOpponent = itemView.findViewById(R.id.tvHistoryOpponent);
-            tvMatkul = itemView.findViewById(R.id.tvHistoryMatkul);
-            tvDate = itemView.findViewById(R.id.tvHistoryDate);
             tvResult = itemView.findViewById(R.id.tvHistoryResult);
-            tvPoint = itemView.findViewById(R.id.tvHistoryPoint);
+            tvMatkul = itemView.findViewById(R.id.tvHistoryMatkul);
+            tvOpponent = itemView.findViewById(R.id.tvHistoryOpponent);
+            tvPoints = itemView.findViewById(R.id.tvHistoryPoints);
         }
     }
 }

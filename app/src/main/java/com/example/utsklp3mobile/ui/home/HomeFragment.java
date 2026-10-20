@@ -5,27 +5,28 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.button.MaterialButton;
 import com.example.utsklp3mobile.R;
 import com.example.utsklp3mobile.ui.battle.BattleActivity;
 import com.example.utsklp3mobile.ui.main.MainActivity;
 import com.example.utsklp3mobile.viewmodel.HomeViewModel;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private TextView tvHomeUserName, tvHomePoints, tvProfileName;
-    private MaterialCardView cardStartBattle;
+    private MaterialCardView cardStartBattle, cardProfileRight;
     private MaterialButton btnPlayNow;
+    private ImageView ivProfileHeaderBg;
 
     private String selectedMatkul = "Pemrograman Mobile";
     private String currentUserName = "Pemain";
@@ -46,6 +47,8 @@ public class HomeFragment extends Fragment {
         tvHomeUserName = view.findViewById(R.id.tvHomeUserName);
         tvHomePoints = view.findViewById(R.id.tvHomePoints);
         tvProfileName = view.findViewById(R.id.tvProfileName);
+        cardProfileRight = view.findViewById(R.id.cardProfileRight);
+        ivProfileHeaderBg = view.findViewById(R.id.ivProfileHeaderBg);
         cardStartBattle = view.findViewById(R.id.cardStartBattle);
         btnPlayNow = view.findViewById(R.id.btnPlayNow);
 
@@ -56,6 +59,20 @@ public class HomeFragment extends Fragment {
         tvHomeUserName.setText("Selamat Pagi, " + currentUserName + "! 👋");
         if (tvProfileName != null) {
             tvProfileName.setText(currentUserName);
+        }
+
+        // Klik foto/card profil untuk menuju ke halaman Profile (tab ke-3)
+        View.OnClickListener goToProfileListener = v -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).selectTab(2);
+            }
+        };
+
+        if (cardProfileRight != null) {
+            cardProfileRight.setOnClickListener(goToProfileListener);
+        }
+        if (ivProfileHeaderBg != null) {
+            ivProfileHeaderBg.setOnClickListener(goToProfileListener);
         }
 
         // Observe ViewModel User Data
