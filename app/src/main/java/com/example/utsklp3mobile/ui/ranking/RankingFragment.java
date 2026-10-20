@@ -49,10 +49,8 @@ public class RankingFragment extends Fragment {
         tvPodium3Points = view.findViewById(R.id.tvPodium3Points);
 
         rankingAdapter = new RankingAdapter();
-        if (rvRanking != null) {
-            rvRanking.setLayoutManager(new LinearLayoutManager(requireContext()));
-            rvRanking.setAdapter(rankingAdapter);
-        }
+        rvRanking.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvRanking.setAdapter(rankingAdapter);
 
         rankingViewModel = new ViewModelProvider(this).get(RankingViewModel.class);
         rankingViewModel.getRankingList().observe(getViewLifecycleOwner(), list -> {
@@ -71,20 +69,20 @@ public class RankingFragment extends Fragment {
     }
 
     private void updatePodiumAndList(List<Ranking> list) {
-        if (list.size() > 0 && tvPodium1Name != null) {
+        if (list.size() > 0) {
             Ranking r1 = list.get(0);
             tvPodium1Name.setText(r1.getNama());
-            if (tvPodium1Points != null) tvPodium1Points.setText(r1.getTotalPoin() + " Poin");
+            tvPodium1Points.setText(r1.getTotalPoin() + " Poin");
         }
-        if (list.size() > 1 && tvPodium2Name != null) {
+        if (list.size() > 1) {
             Ranking r2 = list.get(1);
             tvPodium2Name.setText(r2.getNama());
-            if (tvPodium2Points != null) tvPodium2Points.setText(r2.getTotalPoin() + " Poin");
+            tvPodium2Points.setText(r2.getTotalPoin() + " Poin");
         }
-        if (list.size() > 2 && tvPodium3Name != null) {
+        if (list.size() > 2) {
             Ranking r3 = list.get(2);
             tvPodium3Name.setText(r3.getNama());
-            if (tvPodium3Points != null) tvPodium3Points.setText(r3.getTotalPoin() + " Poin");
+            tvPodium3Points.setText(r3.getTotalPoin() + " Poin");
         }
 
         // Sisa list dari ranking #4 ke bawah dimasukkan ke adapter
