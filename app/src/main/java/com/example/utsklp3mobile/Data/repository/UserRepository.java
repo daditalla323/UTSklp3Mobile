@@ -1,8 +1,8 @@
-package com.example.utsklp3mobile.Data.repository;
+package com.example.utsklp3mobile.data.repository;
 
 import android.content.Context;
-import com.example.utsklp3mobile.Data.local.DatabaseHelper;
-import com.example.utsklp3mobile.Data.model.User;
+import com.example.utsklp3mobile.data.local.DatabaseHelper;
+import com.example.utsklp3mobile.data.model.User;
 
 public class UserRepository {
 

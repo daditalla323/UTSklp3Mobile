@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.utsklp3mobile.Data.model.User;
-import com.example.utsklp3mobile.Data.repository.UserRepository;
+import com.example.utsklp3mobile.data.model.User;
+import com.example.utsklp3mobile.data.repository.UserRepository;
 
 public class HomeViewModel extends AndroidViewModel {
 

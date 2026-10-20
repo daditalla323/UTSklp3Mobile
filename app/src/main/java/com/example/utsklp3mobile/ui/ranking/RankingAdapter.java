@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.utsklp3mobile.R;
-import com.example.utsklp3mobile.Data.model.Ranking;
+import com.example.utsklp3mobile.data.model.Ranking;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +32,9 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         Ranking ranking = rankingList.get(position);
         holder.tvName.setText(ranking.getNama());
         holder.tvPoints.setText(ranking.getTotalPoin() + " Poin");
+        if (holder.tvRankNumber != null) {
+            holder.tvRankNumber.setText(String.valueOf(position + 1));
+        }
     }
 
     @Override
@@ -40,12 +43,13 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvPoints;
+        TextView tvRankNumber, tvName, tvPoints;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tvRankingName);
-            tvPoints = itemView.findViewById(R.id.tvRankingPoints);
+            tvRankNumber = itemView.findViewById(R.id.tvRankNumber);
+            tvName = itemView.findViewById(R.id.tvPlayerName);
+            tvPoints = itemView.findViewById(R.id.tvScore);
         }
     }
 }
