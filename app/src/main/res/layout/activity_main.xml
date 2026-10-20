@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/white">
 
+    <!-- ViewPager2 untuk isi halaman fragment -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/tabLayout" />
 
+    <!-- TabLayout melayang berbentuk kapsul dengan tombol melingkar -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="6dp"
+        android:background="@drawable/bg_floating_nav"
+        app:tabIndicatorHeight="0dp"
+        app:tabBackground="@drawable/tab_item_selector"
+        app:tabIconTint="@color/tab_icon_tint"
+        app:tabGravity="fill"
         app:tabMode="fixed"
-        app:tabGravity="fill" />
+        app:tabRippleColor="@null" />
 
-</LinearLayout>
+</RelativeLayout>

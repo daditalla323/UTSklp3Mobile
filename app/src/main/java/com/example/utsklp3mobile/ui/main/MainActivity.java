@@ -1,18 +1,12 @@
 package com.example.utsklp3mobile.ui.main;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.utsklp3mobile.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.example.utsklp3mobile.R;
-import com.example.utsklp3mobile.ui.home.HomeFragment;
-import com.example.utsklp3mobile.ui.ranking.RankingFragment;
-import com.example.utsklp3mobile.ui.history.HistoryFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,47 +21,23 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
 
+        // Pasang adapter ke ViewPager2
         ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
 
+        // Hubungkan TabLayout dengan ViewPager2 dan pasang ikon pada tiap tab
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("Home");
+                    tab.setIcon(R.drawable.ic_nav_home);
                     break;
                 case 1:
-                    tab.setText("Ranking");
+                    tab.setIcon(R.drawable.ic_nav_ranking);
                     break;
                 case 2:
-                    tab.setText("History");
+                    tab.setIcon(R.drawable.ic_nav_history);
                     break;
             }
         }).attach();
-    }
-
-    private static class ViewPagerAdapter extends FragmentStateAdapter {
-        public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
-            super(fragmentActivity);
-        }
-
-        @NonNull
-        @Override
-        public Fragment createFragment(int position) {
-            switch (position) {
-                case 0:
-                    return new HomeFragment();
-                case 1:
-                    return new RankingFragment();
-                case 2:
-                    return new HistoryFragment();
-                default:
-                    return new HomeFragment();
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return 3;
-        }
     }
 }
