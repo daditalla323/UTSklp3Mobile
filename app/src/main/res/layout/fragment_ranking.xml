@@ -36,6 +36,9 @@
     </RelativeLayout>
 
     <!-- Podium Section untuk Top 3 -->
+
+    <!-- RecyclerView untuk Peringkat 4 ke atas -->
+
     <LinearLayout
         android:id="@+id/layoutPodium"
         android:layout_width="match_parent"
@@ -175,7 +178,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- RecyclerView untuk Peringkat 4 ke atas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRanking"
         android:layout_width="match_parent"
