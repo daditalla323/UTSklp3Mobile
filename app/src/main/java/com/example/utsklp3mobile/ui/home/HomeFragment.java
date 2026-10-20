@@ -1,12 +1,10 @@
 package com.example.utsklp3mobile.ui.home;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.button.MaterialButton;
 import com.example.utsklp3mobile.R;
 import com.example.utsklp3mobile.ui.battle.BattleActivity;
 import com.example.utsklp3mobile.ui.main.MainActivity;
@@ -24,10 +23,9 @@ import com.google.android.material.card.MaterialCardView;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private TextView tvHomeUserName, tvHomePoints, tvHomeWins, tvHomeBattles;
-    private MaterialCardView cardMobile, cardJaringan, cardOS, cardDatabase;
-    private Button btnStartBattle;
-    private View cardGoRanking, cardGoHistory;
+    private TextView tvHomeUserName, tvHomePoints, tvProfileName;
+    private MaterialCardView cardStartBattle;
+    private MaterialButton btnPlayNow;
 
     private String selectedMatkul = "Pemrograman Mobile";
     private String currentUserName = "Pemain";
@@ -44,58 +42,43 @@ public class HomeFragment extends Fragment {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
+        // Inisialisasi View sesuai ID XML layout terbaru
         tvHomeUserName = view.findViewById(R.id.tvHomeUserName);
         tvHomePoints = view.findViewById(R.id.tvHomePoints);
-        tvHomeWins = view.findViewById(R.id.tvHomeWins);
-        tvHomeBattles = view.findViewById(R.id.tvHomeBattles);
-
-        cardMobile = view.findViewById(R.id.cardMatkulMobile);
-        cardJaringan = view.findViewById(R.id.cardMatkulJaringan);
-        cardOS = view.findViewById(R.id.cardMatkulOS);
-        cardDatabase = view.findViewById(R.id.cardMatkulDatabase);
-
-        btnStartBattle = view.findViewById(R.id.btnStartBattle);
-        cardGoRanking = view.findViewById(R.id.cardGoRanking);
-        cardGoHistory = view.findViewById(R.id.cardGoHistory);
+        tvProfileName = view.findViewById(R.id.tvProfileName);
+        cardStartBattle = view.findViewById(R.id.cardStartBattle);
+        btnPlayNow = view.findViewById(R.id.btnPlayNow);
 
         if (getActivity() instanceof MainActivity) {
             currentUserName = ((MainActivity) getActivity()).getUserName();
         }
 
-        tvHomeUserName.setText("Halo, " + currentUserName + "!");
+        tvHomeUserName.setText("Selamat Pagi, " + currentUserName + "! 👋");
+        if (tvProfileName != null) {
+            tvProfileName.setText(currentUserName);
+        }
 
         // Observe ViewModel User Data
         homeViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
             if (user != null) {
-                tvHomePoints.setText(user.getTotalPoin() + " Poin");
-                tvHomeWins.setText(user.getJumlahMenang() + " Menang");
-                tvHomeBattles.setText(user.getJumlahMain() + " Main");
+                String ptsText = user.getTotalPoin() + " Pts";
+                tvHomePoints.setText(ptsText);
             }
         });
 
-        setupMatkulSelection();
-
-        btnStartBattle.setOnClickListener(v -> {
+        // Event klik tombol Main Sekarang / Banner Battle
+        View.OnClickListener startBattleListener = v -> {
             Intent intent = new Intent(requireContext(), BattleActivity.class);
             intent.putExtra("USER_NAME", currentUserName);
             intent.putExtra("MATKUL", selectedMatkul);
             startActivity(intent);
-        });
+        };
 
-        if (cardGoRanking != null) {
-            cardGoRanking.setOnClickListener(v -> {
-                if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).selectTab(1);
-                }
-            });
+        if (cardStartBattle != null) {
+            cardStartBattle.setOnClickListener(startBattleListener);
         }
-
-        if (cardGoHistory != null) {
-            cardGoHistory.setOnClickListener(v -> {
-                if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).selectTab(2);
-                }
-            });
+        if (btnPlayNow != null) {
+            btnPlayNow.setOnClickListener(startBattleListener);
         }
     }
 
@@ -105,29 +88,5 @@ public class HomeFragment extends Fragment {
         if (homeViewModel != null) {
             homeViewModel.loadUser(currentUserName);
         }
-    }
-
-    private void setupMatkulSelection() {
-        cardMobile.setOnClickListener(v -> selectCard(cardMobile, "Pemrograman Mobile"));
-        cardJaringan.setOnClickListener(v -> selectCard(cardJaringan, "Jaringan Komputer"));
-        cardOS.setOnClickListener(v -> selectCard(cardOS, "Sistem Operasi"));
-        cardDatabase.setOnClickListener(v -> selectCard(cardDatabase, "Basis Data"));
-    }
-
-    private void selectCard(MaterialCardView selectedCard, String matkulName) {
-        this.selectedMatkul = matkulName;
-
-        resetCardStyle(cardMobile);
-        resetCardStyle(cardJaringan);
-        resetCardStyle(cardOS);
-        resetCardStyle(cardDatabase);
-
-        selectedCard.setStrokeColor(Color.parseColor("#293681"));
-        selectedCard.setStrokeWidth(6);
-    }
-
-    private void resetCardStyle(MaterialCardView card) {
-        card.setStrokeColor(Color.TRANSPARENT);
-        card.setStrokeWidth(0);
     }
 }
