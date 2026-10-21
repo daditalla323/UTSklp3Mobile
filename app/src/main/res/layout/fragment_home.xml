@@ -4,503 +4,520 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/white"
+    android:background="#F5F7FB"
     android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
         android:paddingBottom="90dp">
 
-        <!-- ================= 1. HEADER ================= -->
+        <!-- ================= 1. HEADER BIRU TUA ================= -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:background="@drawable/bg_header_curve"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="28dp">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvHomeUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Selamat Pagi! 👋"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Siap bertanding kuis hari ini?"
-                    android:textColor="@color/gray"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <!-- Profil mini berbentuk pill -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardProfileRight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardBackgroundColor="@color/background"
-                app:cardCornerRadius="28dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvHomeUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Selamat Pagi! 👋"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Siap bertanding kuis hari ini?"
+                        android:textColor="#95CCDD"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <!-- Profil mini berbentuk pill -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardProfileRight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="35dp"
-                    android:paddingVertical="6dp">
-
-                    <ImageView
-                        android:id="@+id/ivProfileHeaderBg"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/bg_circle_avatar_1"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_person"
-                        app:tint="@color/primary" />
+                    android:layout_marginStart="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="#1F2963"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="14dp"
+                        android:paddingVertical="6dp">
+
+                        <ImageView
+                            android:id="@+id/ivProfileHeaderBg"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_circle_avatar_1"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_person"
+                            app:tint="@color/primary" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvProfileName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:maxWidth="80dp"
+                                android:text="Nur Hafsa"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvHomePoints"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="⭐ 300 Pts"
+                                android:textColor="#95CCDD"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ================= KONTEN UTAMA HOME ================= -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp">
+
+            <!-- ================= 2. HERO CARD ================= -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardStartBattle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/primary"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="22dp">
+
+                    <!-- Ikon besar sebagai dekorasi -->
+                    <TextView
+                        android:id="@+id/tvHeroIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:alpha="0.95"
+                        android:rotation="-12"
+                        android:text="⚔️"
+                        android:textSize="64sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@id/tvHeroIcon"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tvProfileName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:maxWidth="80dp"
-                            android:text="Nur Hafsa"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:text="Tantang Teman &amp;\nUji Kemampuanmu!"
+                            android:textColor="@color/white"
+                            android:textSize="19sp"
+                            android:textStyle="bold"
+                            android:lineSpacingExtra="3dp" />
 
-                        <TextView
-                            android:id="@+id/tvHomePoints"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPlayNow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="⭐ 300 Pts"
+                            android:layout_marginTop="16dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:paddingHorizontal="20dp"
+                            android:text="Main Sekarang!"
                             android:textColor="@color/primary"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="@color/butter_yellow"
+                            app:cornerRadius="20dp"
+                            app:strokeWidth="0dp" />
                     </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
 
-        <!-- ================= 2. HERO CARD ================= -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardStartBattle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardBackgroundColor="@color/primary"
-            app:cardCornerRadius="28dp"
-            app:cardElevation="4dp">
+            <!-- ================= 3. MATA KULIAH ================= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilih Mata Kuliah"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="28dp"
+                android:clipToPadding="false"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_chip_primary"
+                        android:paddingHorizontal="18dp"
+                        android:paddingVertical="10dp"
+                        android:text="Pemrograman Mobile"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_chip_unselected"
+                        android:paddingHorizontal="18dp"
+                        android:paddingVertical="10dp"
+                        android:text="Jaringan Komputer"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_chip_unselected"
+                        android:paddingHorizontal="18dp"
+                        android:paddingVertical="10dp"
+                        android:text="Sistem Operasi"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_chip_unselected"
+                        android:paddingHorizontal="18dp"
+                        android:paddingVertical="10dp"
+                        android:text="Basis Data"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- ================= 4. TEMAN ONLINE ================= -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="22dp">
+                android:layout_marginBottom="14dp">
 
-                <!-- Ikon besar sebagai dekorasi -->
                 <TextView
-                    android:id="@+id/tvHeroIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="Teman Online"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAddFriend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:alpha="0.95"
-                    android:rotation="-12"
-                    android:text="⚔️"
-                    android:textSize="64sp" />
+                    android:padding="4dp"
+                    android:text="+ Cari Teman"
+                    android:textColor="@color/secondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
+                android:scrollbars="none">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/tvHeroIcon"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="64dp"
                         android:layout_height="wrap_content"
-                        android:text="Tantang Teman &amp;\nUji Kemampuanmu!"
-                        android:textColor="@color/white"
-                        android:textSize="19sp"
-                        android:textStyle="bold"
-                        android:lineSpacingExtra="3dp" />
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnPlayNow"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/bg_circle_avatar_1"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_person" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Teman 1"
+                            android:textColor="@color/black"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="64dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:paddingHorizontal="20dp"
-                        android:text="Main Sekarang!"
-                        android:textColor="@color/primary"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:backgroundTint="@color/butter_yellow"
-                        app:cornerRadius="20dp"
-                        app:strokeWidth="0dp" />
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/bg_circle_avatar_2"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_person" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Teman 2"
+                            android:textColor="@color/black"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="64dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/bg_circle_avatar_3"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_person" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Teman 3"
+                            android:textColor="@color/black"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="64dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/bg_circle_avatar_4"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_person" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Teman 4"
+                            android:textColor="@color/black"
+                            android:textSize="11sp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </RelativeLayout>
-        </com.google.android.material.card.MaterialCardView>
+            </HorizontalScrollView>
 
-        <!-- ================= 3. MATA KULIAH ================= -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pilih Mata Kuliah"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="28dp"
-            android:clipToPadding="false"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <!-- ================= 5. MODE PERMAINAN ================= -->
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginBottom="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_chip_primary"
-                    android:paddingHorizontal="18dp"
-                    android:paddingVertical="10dp"
-                    android:text="Pemrograman Mobile"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
+                    android:layout_alignParentStart="true"
+                    android:text="Mode Permainan"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvViewAllDiscovery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_chip_unselected"
-                    android:paddingHorizontal="18dp"
-                    android:paddingVertical="10dp"
-                    android:text="Jaringan Komputer"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_chip_unselected"
-                    android:paddingHorizontal="18dp"
-                    android:paddingVertical="10dp"
-                    android:text="Sistem Operasi"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_chip_unselected"
-                    android:paddingHorizontal="18dp"
-                    android:paddingVertical="10dp"
-                    android:text="Basis Data"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <!-- ================= 4. TEMAN ONLINE ================= -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="Teman Online"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvAddFriend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="4dp"
-                android:text="+ Cari Teman"
-                android:textColor="@color/secondary"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
-            android:scrollbars="none">
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="4dp"
+                    android:text="Lihat Semua"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
+                <!-- Ranked Arena -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardRankedBattle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="#F8FAFC"
+                    app:cardCornerRadius="22dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#E2E8F0"
+                    app:strokeWidth="1dp">
 
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_circle_avatar_1"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_person" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Teman 1"
-                        android:textColor="@color/black"
-                        android:textSize="11sp" />
-                </LinearLayout>
+                        android:orientation="vertical"
+                        android:padding="12dp">
 
-                <LinearLayout
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:background="@drawable/bg_rounded_card_inner"
+                            android:gravity="center"
+                            android:text="🏆"
+                            android:textSize="38sp" />
 
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_circle_avatar_2"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_person" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Ranked Arena"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:lineSpacingExtra="2dp"
+                            android:text="Kurangi HP lawan dan kumpulkan poin!"
+                            android:textColor="@color/gray"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- AI Challenge -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardAiQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="#F8FAFC"
+                    app:cardCornerRadius="22dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#E2E8F0"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Teman 2"
-                        android:textColor="@color/black"
-                        android:textSize="11sp" />
-                </LinearLayout>
+                        android:orientation="vertical"
+                        android:padding="12dp">
 
-                <LinearLayout
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:background="@drawable/bg_rounded_card_inner"
+                            android:gravity="center"
+                            android:text="🤖"
+                            android:textSize="38sp" />
 
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_circle_avatar_3"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_person" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="AI Challenge"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Teman 3"
-                        android:textColor="@color/black"
-                        android:textSize="11sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_circle_avatar_4"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_person" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Teman 4"
-                        android:textColor="@color/black"
-                        android:textSize="11sp" />
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:lineSpacingExtra="2dp"
+                            android:text="Soal kuis otomatis buatan AI!"
+                            android:textColor="@color/gray"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
-        </HorizontalScrollView>
 
-        <!-- ================= 5. MODE PERMAINAN ================= -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="Mode Permainan"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvViewAllDiscovery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="4dp"
-                android:text="Lihat Semua"
-                android:textColor="@color/gray"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <!-- Ranked Arena -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardRankedBattle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardBackgroundColor="#F8FAFC"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="0dp"
-                app:strokeColor="#E2E8F0"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp"
-                        android:background="@drawable/bg_rounded_card_inner"
-                        android:gravity="center"
-                        android:text="🏆"
-                        android:textSize="38sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="Ranked Arena"
-                        android:textColor="@color/primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:lineSpacingExtra="2dp"
-                        android:text="Kurangi HP lawan dan kumpulkan poin!"
-                        android:textColor="@color/gray"
-                        android:textSize="11sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- AI Challenge -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardAiQuiz"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardBackgroundColor="#F8FAFC"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="0dp"
-                app:strokeColor="#E2E8F0"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp"
-                        android:background="@drawable/bg_rounded_card_inner"
-                        android:gravity="center"
-                        android:text="🤖"
-                        android:textSize="38sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="AI Challenge"
-                        android:textColor="@color/primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:lineSpacingExtra="2dp"
-                        android:text="Soal kuis otomatis buatan AI!"
-                        android:textColor="@color/gray"
-                        android:textSize="11sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
     </LinearLayout>
