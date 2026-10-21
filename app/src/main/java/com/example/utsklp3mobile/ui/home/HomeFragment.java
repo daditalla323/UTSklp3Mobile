@@ -1,12 +1,15 @@
 package com.example.utsklp3mobile.ui.home;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.utsklp3mobile.R;
 import com.example.utsklp3mobile.ui.battle.BattleActivity;
+import com.example.utsklp3mobile.ui.friend.SearchFriendActivity;
 import com.example.utsklp3mobile.ui.main.MainActivity;
 import com.example.utsklp3mobile.viewmodel.HomeViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -23,7 +27,8 @@ import com.google.android.material.card.MaterialCardView;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private TextView tvHomeUserName, tvProfileName, tvHomePoints;
+    private TextView tvHomeUserName, tvProfileName, tvHomePoints, tvAddFriend;
+    private TextView tvMatkulMobile, tvMatkulJarkom, tvMatkulSistop, tvMatkulBasdat;
     private MaterialCardView cardProfileRight, cardStartBattle, cardRankedBattle, cardAiQuiz;
     private MaterialButton btnPlayNow;
     private ImageView ivProfileHeaderBg;
@@ -46,6 +51,12 @@ public class HomeFragment extends Fragment {
         tvHomeUserName = view.findViewById(R.id.tvHomeUserName);
         tvProfileName = view.findViewById(R.id.tvProfileName);
         tvHomePoints = view.findViewById(R.id.tvHomePoints);
+        tvAddFriend = view.findViewById(R.id.tvAddFriend);
+
+        tvMatkulMobile = view.findViewById(R.id.tvMatkulMobile);
+        tvMatkulJarkom = view.findViewById(R.id.tvMatkulJarkom);
+        tvMatkulSistop = view.findViewById(R.id.tvMatkulSistop);
+        tvMatkulBasdat = view.findViewById(R.id.tvMatkulBasdat);
 
         cardProfileRight = view.findViewById(R.id.cardProfileRight);
         ivProfileHeaderBg = view.findViewById(R.id.ivProfileHeaderBg);
@@ -65,6 +76,9 @@ public class HomeFragment extends Fragment {
             tvProfileName.setText(currentUserName);
         }
 
+        // Setup Klik Pilihan Mata Kuliah
+        setupMatkulSelection();
+
         // Navigasi ke ProfileFragment saat profil ditekan
         View.OnClickListener goToProfileListener = v -> {
             if (getActivity() instanceof MainActivity) {
@@ -79,6 +93,15 @@ public class HomeFragment extends Fragment {
             ivProfileHeaderBg.setOnClickListener(goToProfileListener);
         }
 
+        // Navigasi ke SearchFriendActivity saat "+ Cari Teman" ditekan
+        if (tvAddFriend != null) {
+            tvAddFriend.setOnClickListener(v -> {
+                Intent intent = new Intent(requireContext(), SearchFriendActivity.class);
+                intent.putExtra("USER_NAME", currentUserName);
+                startActivity(intent);
+            });
+        }
+
         // Observe ViewModel User Data
         homeViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
             if (user != null) {
@@ -88,18 +111,69 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Event Tombol Mulai Battle
-        View.OnClickListener startBattleListener = v -> {
-            Intent intent = new Intent(requireContext(), BattleActivity.class);
-            intent.putExtra("USER_NAME", currentUserName);
-            intent.putExtra("MATKUL", selectedMatkul);
-            startActivity(intent);
-        };
+        // Event Tombol Mulai Battle dengan Pilihan Mode & Mata Kuliah
+        if (cardStartBattle != null) {
+            cardStartBattle.setOnClickListener(v -> launchBattle("RANKED"));
+        }
+        if (btnPlayNow != null) {
+            btnPlayNow.setOnClickListener(v -> launchBattle("RANKED"));
+        }
+        if (cardRankedBattle != null) {
+            cardRankedBattle.setOnClickListener(v -> launchBattle("RANKED"));
+        }
+        if (cardAiQuiz != null) {
+            cardAiQuiz.setOnClickListener(v -> launchBattle("AI_CHALLENGE"));
+        }
+    }
 
-        if (cardStartBattle != null) cardStartBattle.setOnClickListener(startBattleListener);
-        if (btnPlayNow != null) btnPlayNow.setOnClickListener(startBattleListener);
-        if (cardRankedBattle != null) cardRankedBattle.setOnClickListener(startBattleListener);
-        if (cardAiQuiz != null) cardAiQuiz.setOnClickListener(startBattleListener);
+    private void launchBattle(String mode) {
+        Intent intent = new Intent(requireContext(), BattleActivity.class);
+        intent.putExtra("USER_NAME", currentUserName);
+        intent.putExtra("MATKUL", selectedMatkul);
+        intent.putExtra("BATTLE_MODE", mode);
+        startActivity(intent);
+    }
+
+    private void setupMatkulSelection() {
+        if (tvMatkulMobile != null) {
+            tvMatkulMobile.setOnClickListener(v -> selectMatkul("Pemrograman Mobile", tvMatkulMobile));
+        }
+        if (tvMatkulJarkom != null) {
+            tvMatkulJarkom.setOnClickListener(v -> selectMatkul("Jaringan Komputer", tvMatkulJarkom));
+        }
+        if (tvMatkulSistop != null) {
+            tvMatkulSistop.setOnClickListener(v -> selectMatkul("Sistem Operasi", tvMatkulSistop));
+        }
+        if (tvMatkulBasdat != null) {
+            tvMatkulBasdat.setOnClickListener(v -> selectMatkul("Basis Data", tvMatkulBasdat));
+        }
+    }
+
+    private void selectMatkul(String matkulName, TextView selectedTextView) {
+        this.selectedMatkul = matkulName;
+
+        // Reset semua chip ke unselected
+        resetMatkulChip(tvMatkulMobile);
+        resetMatkulChip(tvMatkulJarkom);
+        resetMatkulChip(tvMatkulSistop);
+        resetMatkulChip(tvMatkulBasdat);
+
+        // Highlight chip yang dipilih
+        if (selectedTextView != null) {
+            selectedTextView.setBackgroundResource(R.drawable.bg_chip_primary);
+            selectedTextView.setTextColor(Color.WHITE);
+            selectedTextView.setTypeface(null, Typeface.BOLD);
+        }
+
+        Toast.makeText(requireContext(), "Mata Kuliah: " + matkulName, Toast.LENGTH_SHORT).show();
+    }
+
+    private void resetMatkulChip(TextView chip) {
+        if (chip != null) {
+            chip.setBackgroundResource(R.drawable.bg_chip_unselected);
+            chip.setTextColor(Color.BLACK);
+            chip.setTypeface(null, Typeface.NORMAL);
+        }
     }
 
     @Override

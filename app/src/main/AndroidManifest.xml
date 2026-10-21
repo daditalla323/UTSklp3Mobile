@@ -37,6 +37,11 @@
             android:name=".ui.battle.BattleActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.friend.SearchFriendActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>

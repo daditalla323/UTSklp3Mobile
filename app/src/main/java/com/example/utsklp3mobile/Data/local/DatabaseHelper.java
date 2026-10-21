@@ -36,6 +36,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_HISTORY_POIN = "poin_didapat";
     private static final String COL_HISTORY_TANGGAL = "tanggal";
 
+    // Tabel Friends
+    private static final String TABLE_FRIENDS = "friends";
+    private static final String COL_FRIEND_ID = "id";
+    private static final String COL_FRIEND_USER_NAME = "user_name";
+    private static final String COL_FRIEND_NAME = "friend_name";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -59,12 +65,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_HISTORY_POIN + " INTEGER, " +
                 COL_HISTORY_TANGGAL + " TEXT)";
         db.execSQL(createHistory);
+
+        String createFriends = "CREATE TABLE IF NOT EXISTS " + TABLE_FRIENDS + " (" +
+                COL_FRIEND_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_FRIEND_USER_NAME + " TEXT, " +
+                COL_FRIEND_NAME + " TEXT)";
+        db.execSQL(createFriends);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRIENDS);
         onCreate(db);
     }
 
@@ -165,5 +178,64 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return list;
+    }
+
+    // ========== FRIENDS & SEARCH ==========
+    public List<User> searchUsersByNickname(String query, String currentUserName) {
+        List<User> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        
+        // Buat tabel teman jika belum ada
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_FRIENDS + " (" +
+                COL_FRIEND_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_FRIEND_USER_NAME + " TEXT, " +
+                COL_FRIEND_NAME + " TEXT)");
+
+        String selection = COL_USER_NAMA + " LIKE ? AND " + COL_USER_NAMA + " != ?";
+        String[] selectionArgs = new String[]{"%" + query + "%", currentUserName};
+        
+        Cursor cursor = db.query(TABLE_USERS, null, selection, selectionArgs, null, null, COL_USER_NAMA + " ASC");
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                User user = new User(
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COL_USER_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COL_USER_NAMA)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COL_USER_POIN)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COL_USER_MENANG)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COL_USER_KALAH)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COL_USER_MAIN))
+                );
+                list.add(user);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return list;
+    }
+
+    public boolean addFriend(String currentUserName, String friendName) {
+        if (isFriend(currentUserName, friendName)) {
+            return false;
+        }
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_FRIEND_USER_NAME, currentUserName);
+        values.put(COL_FRIEND_NAME, friendName);
+        long res = db.insert(TABLE_FRIENDS, null, values);
+        return res != -1;
+    }
+
+    public boolean isFriend(String currentUserName, String friendName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_FRIENDS + " (" +
+                COL_FRIEND_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_FRIEND_USER_NAME + " TEXT, " +
+                COL_FRIEND_NAME + " TEXT)");
+
+        Cursor cursor = db.query(TABLE_FRIENDS, null,
+                COL_FRIEND_USER_NAME + "=? AND " + COL_FRIEND_NAME + "=?",
+                new String[]{currentUserName, friendName}, null, null, null);
+        boolean exists = (cursor != null && cursor.getCount() > 0);
+        if (cursor != null) cursor.close();
+        return exists;
     }
 }

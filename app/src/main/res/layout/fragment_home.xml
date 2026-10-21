@@ -194,10 +194,13 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tvMatkulMobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/bg_chip_primary"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingHorizontal="18dp"
                     android:paddingVertical="10dp"
                     android:text="Pemrograman Mobile"
@@ -206,10 +209,13 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvMatkulJarkom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/bg_chip_unselected"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingHorizontal="18dp"
                     android:paddingVertical="10dp"
                     android:text="Jaringan Komputer"
@@ -217,10 +223,13 @@
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/tvMatkulSistop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/bg_chip_unselected"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingHorizontal="18dp"
                     android:paddingVertical="10dp"
                     android:text="Sistem Operasi"
@@ -228,9 +237,12 @@
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/tvMatkulBasdat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_chip_unselected"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingHorizontal="18dp"
                     android:paddingVertical="10dp"
                     android:text="Basis Data"

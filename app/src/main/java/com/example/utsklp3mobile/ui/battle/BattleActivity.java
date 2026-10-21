@@ -43,9 +43,10 @@ public class BattleActivity extends AppCompatActivity {
     private TextView tvResultStatus, tvResultPoints;
     private MaterialButton btnFinishBattle;
 
-    private String currentUserName = "Dadi";
+    private String currentUserName = "Pemain";
     private String enemyName = "Rina";
     private String selectedMatkul = "Pemrograman Mobile";
+    private String battleMode = "RANKED";
 
     private List<Question> questionList = new ArrayList<>();
     private int currentQuestionIndex = 0;
@@ -64,7 +65,13 @@ public class BattleActivity extends AppCompatActivity {
             if (getIntent().hasExtra("MATKUL")) {
                 selectedMatkul = getIntent().getStringExtra("MATKUL");
             }
+            if (getIntent().hasExtra("BATTLE_MODE")) {
+                battleMode = getIntent().getStringExtra("BATTLE_MODE");
+            }
         }
+
+        // Tentukan Nama Lawan Berdasarkan Mode
+        setupEnemyName();
 
         initViews();
         setupQuestions();
@@ -96,6 +103,18 @@ public class BattleActivity extends AppCompatActivity {
 
         // Display first question
         displayQuestion(0);
+    }
+
+    private void setupEnemyName() {
+        if ("AI_CHALLENGE".equalsIgnoreCase(battleMode)) {
+            String[] aiNames = new String[]{"Bot123", "AI-Master", "QuizBot3000", "CyberBot-X", "RoboQuiz"};
+            int randomIndex = (int) (Math.random() * aiNames.length);
+            enemyName = aiNames[randomIndex];
+        } else {
+            String[] humanNames = new String[]{"Rina", "Budi", "Siti", "Andi", "Dewi", "Reza", "Fikri", "Ayu"};
+            int randomIndex = (int) (Math.random() * humanNames.length);
+            enemyName = humanNames[randomIndex];
+        }
     }
 
     private void initViews() {
@@ -141,33 +160,91 @@ public class BattleActivity extends AppCompatActivity {
         tvResultPoints = findViewById(R.id.tvResultPoints);
         btnFinishBattle = findViewById(R.id.btnFinishBattle);
 
-        tvMatkulBadge.setText(selectedMatkul + " · Ranked");
+        String modeLabel = "AI_CHALLENGE".equalsIgnoreCase(battleMode) ? "AI Challenge" : "Ranked Arena";
+        tvMatkulBadge.setText(selectedMatkul + " · " + modeLabel);
         tvPlayerName.setText(currentUserName);
         if (currentUserName != null && !currentUserName.isEmpty()) {
             tvPlayerAvatar.setText(currentUserName.substring(0, 1).toUpperCase());
         }
 
         tvEnemyName.setText(enemyName);
-        tvEnemyAvatar.setText(enemyName.substring(0, 1).toUpperCase());
+        if (enemyName != null && !enemyName.isEmpty()) {
+            tvEnemyAvatar.setText(enemyName.substring(0, 1).toUpperCase());
+        }
     }
 
     private void setupQuestions() {
         questionList.clear();
-        questionList.add(new Question(1, selectedMatkul,
-                "Widget apa yang paling tepat untuk menyusun tampilan secara vertikal di Flutter?",
-                "Row", "Column", "Stack", "Container", "B"));
 
-        questionList.add(new Question(2, selectedMatkul,
-                "Komponen Android manakah yang digunakan sebagai UI container/screen utama?",
-                "Activity", "Service", "Broadcast Receiver", "Content Provider", "A"));
+        if ("Jaringan Komputer".equalsIgnoreCase(selectedMatkul)) {
+            questionList.add(new Question(1, selectedMatkul,
+                    "Protokol mana yang bekerja pada Transport Layer dan berorientasi koneksi (connection-oriented)?",
+                    "UDP", "TCP", "HTTP", "IP", "B"));
+            questionList.add(new Question(2, selectedMatkul,
+                    "Alamat IP 192.168.1.1 termasuk dalam kelas alamat IP berapa?",
+                    "Kelas A", "Kelas B", "Kelas C", "Kelas D", "C"));
+            questionList.add(new Question(3, selectedMatkul,
+                    "Topologi jaringan yang menghubungkan semua komputer ke satu perangkat pusat (Hub/Switch)?",
+                    "Topologi Bus", "Topologi Star", "Topologi Ring", "Topologi Mesh", "B"));
+            questionList.add(new Question(4, selectedMatkul,
+                    "Perangkat jaringan yang berfungsi menghubungkan dua atau lebih jaringan berbeda segmen?",
+                    "Switch", "Hub", "Router", "Repeater", "C"));
+            questionList.add(new Question(5, selectedMatkul,
+                    "Berapa nomor port default yang digunakan oleh protokol HTTPS?",
+                    "80", "21", "22", "443", "D"));
 
-        questionList.add(new Question(3, selectedMatkul,
-                "Layout manakah yang menyusun view secara berurutan dalam satu baris atau kolom?",
-                "LinearLayout", "RelativeLayout", "FrameLayout", "ConstraintLayout", "A"));
+        } else if ("Sistem Operasi".equalsIgnoreCase(selectedMatkul)) {
+            questionList.add(new Question(1, selectedMatkul,
+                    "Bagian utama sistem operasi yang mengelola memori, proses, dan perangkat keras adalah?",
+                    "Shell", "Kernel", "Compiler", "Driver", "B"));
+            questionList.add(new Question(2, selectedMatkul,
+                    "Kondisi ketika dua atau lebih proses saling menunggu sumber daya secara tak terbatas disebut?",
+                    "Starvation", "Paging", "Deadlock", "Thrashing", "C"));
+            questionList.add(new Question(3, selectedMatkul,
+                    "Algoritma penjadwalan CPU yang melayani proses berdasarkan urutan kedatangan adalah?",
+                    "FCFS", "SJF", "Round Robin", "Priority Scheduling", "A"));
+            questionList.add(new Question(4, selectedMatkul,
+                    "Memori virtual utama yang digunakan sistem operasi saat RAM fisik penuh disebut?",
+                    "Cache", "Swap / Paging", "ROM", "Register", "B"));
+            questionList.add(new Question(5, selectedMatkul,
+                    "Sistem berkas (file system) default yang digunakan oleh OS Windows modern adalah?",
+                    "FAT32", "ext4", "NTFS", "APFS", "C"));
 
-        questionList.add(new Question(4, selectedMatkul,
-                "Method lifecycle manakah yang dipanggil pertama kali saat Activity dibuat?",
-                "onStart()", "onCreate()", "onResume()", "onInit()", "B"));
+        } else if ("Basis Data".equalsIgnoreCase(selectedMatkul)) {
+            questionList.add(new Question(1, selectedMatkul,
+                    "Perintah SQL yang digunakan untuk mengambil data dari satu atau lebih tabel adalah?",
+                    "UPDATE", "INSERT", "DELETE", "SELECT", "D"));
+            questionList.add(new Question(2, selectedMatkul,
+                    "Primary Key dalam sebuah tabel fungsi utamanya adalah?",
+                    "Mengurutkan baris", "Mengidentifikasi baris secara unik", "Menghapus data ganda", "Mencegah nilai NULL pada semua kolom", "B"));
+            questionList.add(new Question(3, selectedMatkul,
+                    "Perintah DDL SQL untuk menghapus seluruh tabel beserta strukturnya dari database adalah?",
+                    "DROP TABLE", "DELETE TABLE", "REMOVE TABLE", "TRUNCATE TABLE", "A"));
+            questionList.add(new Question(4, selectedMatkul,
+                    "Klausa SQL 'GROUP BY' biasanya digunakan bersama dengan fungsi agregat seperti?",
+                    "COUNT / SUM", "LIKE / BETWEEN", "JOIN / UNION", "ORDER BY / LIMIT", "A"));
+            questionList.add(new Question(5, selectedMatkul,
+                    "Kunci yang menghubungkan baris pada satu tabel dengan baris pada tabel lain disebut?",
+                    "Primary Key", "Foreign Key", "Super Key", "Candidate Key", "B"));
+
+        } else {
+            // Default: Pemrograman Mobile
+            questionList.add(new Question(1, selectedMatkul,
+                    "Widget apa yang paling tepat untuk menyusun tampilan secara vertikal di Flutter?",
+                    "Row", "Column", "Stack", "Container", "B"));
+            questionList.add(new Question(2, selectedMatkul,
+                    "Komponen Android manakah yang digunakan sebagai UI container / screen utama?",
+                    "Activity", "Service", "Broadcast Receiver", "Content Provider", "A"));
+            questionList.add(new Question(3, selectedMatkul,
+                    "Layout manakah yang menyusun view secara berurutan dalam satu baris atau kolom?",
+                    "LinearLayout", "RelativeLayout", "FrameLayout", "ConstraintLayout", "A"));
+            questionList.add(new Question(4, selectedMatkul,
+                    "Method lifecycle manakah yang dipanggil pertama kali saat Activity dibuat?",
+                    "onStart()", "onCreate()", "onResume()", "onInit()", "B"));
+            questionList.add(new Question(5, selectedMatkul,
+                    "Bahasa pemrograman resmi yang direkomendasikan Google untuk pengembangan Android native saat ini?",
+                    "Java", "Kotlin", "C++", "Dart", "B"));
+        }
     }
 
     private void displayQuestion(int index) {
