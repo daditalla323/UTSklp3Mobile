@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android
+    .com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -13,14 +14,14 @@
         android:orientation="vertical"
         android:paddingBottom="90dp">
 
-        <!-- ================= 1. HEADER BIRU TUA ================= -->
+        <!-- ================= 1. HEADER BIRU TUA PADA BAGIAN PALING ATAS ================= -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_header_curve"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingTop="32dp"
+            android:paddingTop="36dp"
             android:paddingBottom="28dp">
 
             <LinearLayout
@@ -61,7 +62,7 @@
                     android:layout_marginStart="12dp"
                     android:clickable="true"
                     android:focusable="true"
-                    app:cardBackgroundColor="#1F2963"
+                    app:cardBackgroundColor="@color/dark_blue"
                     app:cardCornerRadius="28dp"
                     app:cardElevation="0dp"
                     app:strokeWidth="0dp">
@@ -139,6 +140,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/dark_blue"
                     android:padding="22dp">
 
                     <!-- Ikon besar sebagai dekorasi -->
@@ -180,6 +182,7 @@
                             android:textColor="@color/primary"
                             android:textSize="12sp"
                             android:textStyle="bold"
+                            android:backgroundTint="@color/butter_yellow"
                             app:backgroundTint="@color/butter_yellow"
                             app:cornerRadius="20dp"
                             app:strokeWidth="0dp" />
@@ -210,10 +213,13 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tvMatkulMobile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/bg_chip_primary"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="10dp"
                         android:text="Pemrograman Mobile"
@@ -222,10 +228,13 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvMatkulJarkom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/bg_chip_unselected"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="10dp"
                         android:text="Jaringan Komputer"
@@ -233,10 +242,13 @@
                         android:textSize="13sp" />
 
                     <TextView
+                        android:id="@+id/tvMatkulSistop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/bg_chip_unselected"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="10dp"
                         android:text="Sistem Operasi"
@@ -244,9 +256,12 @@
                         android:textSize="13sp" />
 
                     <TextView
+                        android:id="@+id/tvMatkulBasdat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_chip_unselected"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="10dp"
                         android:text="Basis Data"

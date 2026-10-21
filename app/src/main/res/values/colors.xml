@@ -2,12 +2,15 @@
 <resources>
     <color name="primary">#293681</color>
     <color name="primary_dark">#1A245A</color>
+    <color name="dark_blue">#1F2963</color>
+    <color name="navy_blue">#141C48</color>
     <color name="secondary">#4274D9</color>
     <color name="light_blue">#95CCDD</color>
     <color name="background">#D0E7E6</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#212121</color>
     <color name="gray">#757575</color>
-    <color name="butter_yellow">#FFF3B4</color>
+    <color name="butter_yellow">#FFCA28</color>
+    <color name="butter_yellow_light">#FFF3B4</color>
     <color name="light_yellow">#FEF0B6</color>
 </resources>
