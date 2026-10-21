@@ -38,6 +38,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.battle.ChooseModeActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.friend.SearchFriendActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

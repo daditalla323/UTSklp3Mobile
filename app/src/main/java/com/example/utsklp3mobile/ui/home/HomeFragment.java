@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.utsklp3mobile.R;
 import com.example.utsklp3mobile.ui.battle.BattleActivity;
+import com.example.utsklp3mobile.ui.battle.ChooseModeActivity;
 import com.example.utsklp3mobile.ui.friend.SearchFriendActivity;
 import com.example.utsklp3mobile.ui.main.MainActivity;
 import com.example.utsklp3mobile.viewmodel.HomeViewModel;
@@ -111,12 +112,19 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Event Tombol Mulai Battle dengan Pilihan Mode & Mata Kuliah
+        // Event Tombol Mulai Battle -> Buka ChooseModeActivity untuk memilih Mode Battle
+        View.OnClickListener openChooseModeListener = v -> {
+            Intent intent = new Intent(requireContext(), ChooseModeActivity.class);
+            intent.putExtra("USER_NAME", currentUserName);
+            intent.putExtra("MATKUL", selectedMatkul);
+            startActivity(intent);
+        };
+
         if (cardStartBattle != null) {
-            cardStartBattle.setOnClickListener(v -> launchBattle("RANKED"));
+            cardStartBattle.setOnClickListener(openChooseModeListener);
         }
         if (btnPlayNow != null) {
-            btnPlayNow.setOnClickListener(v -> launchBattle("RANKED"));
+            btnPlayNow.setOnClickListener(openChooseModeListener);
         }
         if (cardRankedBattle != null) {
             cardRankedBattle.setOnClickListener(v -> launchBattle("RANKED"));

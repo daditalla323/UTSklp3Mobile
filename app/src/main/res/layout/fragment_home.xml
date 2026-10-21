@@ -80,10 +80,8 @@
                             android:id="@+id/ivProfileHeaderBg"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:background="@drawable/bg_circle_avatar_1"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_person"
-                            app:tint="@color/primary" />
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/profil" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -99,7 +97,7 @@
                                 android:maxLines="1"
                                 android:maxWidth="80dp"
                                 android:text="Nur Hafsa"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -144,12 +142,13 @@
                     android:padding="22dp">
 
                     <!-- Ikon besar sebagai dekorasi -->
+
                     <TextView
                         android:id="@+id/tvHeroIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="80dp"
+                        android:layout_height="87dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="48dp"
                         android:alpha="0.95"
                         android:rotation="-12"
                         android:text="⚔️"
@@ -162,13 +161,13 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="202dp"
+                            android:layout_height="60dp"
+                            android:lineSpacingExtra="3dp"
                             android:text="Tantang Teman &amp;\nUji Kemampuanmu!"
                             android:textColor="@color/white"
                             android:textSize="19sp"
-                            android:textStyle="bold"
-                            android:lineSpacingExtra="3dp" />
+                            android:textStyle="bold" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnPlayNow"
@@ -478,7 +477,7 @@
                             android:layout_marginTop="3dp"
                             android:lineSpacingExtra="2dp"
                             android:text="Kurangi HP lawan dan kumpulkan poin!"
-                            android:textColor="@color/gray"
+                            android:textColor="@color/black"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -527,7 +526,7 @@
                             android:layout_marginTop="3dp"
                             android:lineSpacingExtra="2dp"
                             android:text="Soal kuis otomatis buatan AI!"
-                            android:textColor="@color/gray"
+                            android:textColor="@color/black"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
