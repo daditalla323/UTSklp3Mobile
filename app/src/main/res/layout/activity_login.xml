@@ -5,75 +5,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#293681"
+    android:background="#F5F7FB"
     tools:context=".ui.auth.LoginActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="36dp">
 
-        <!-- Aksen Hiasan Melengkung Atas Kanan -->
-        <View
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="-40dp"
-            android:layout_marginTop="-40dp"
-            android:background="@drawable/bg_circle_accent_bright" />
+        <!-- Top Header dengan Curve Header Background -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_header_curve"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="52dp">
 
-        <!-- Aksen Hiasan Melengkung Atas Kiri -->
-        <View
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="-30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_circle_accent_soft" />
+            <!-- Aksen Circle Hiasan -->
+            <View
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-30dp"
+                android:layout_marginEnd="-30dp"
+                android:background="@drawable/bg_circle_accent_bright" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <!-- Logo / Maskot -->
+                <ImageView
+                    android:id="@+id/ivMascot"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/maskot_qba"
+                    android:contentDescription="Maskot Game" />
+
+                <!-- Header Teks -->
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Siap Bertanding? ⚔️"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Masuk dan tantang temanmu di Quiz Arena!"
+                    android:textColor="#95CCDD"
+                    android:textSize="13sp"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Container Card Form Login -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:padding="24dp">
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="-30dp">
 
-            <!-- Logo / Maskot Arena -->
-            <ImageView
-                android:id="@+id/ivMascot"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_marginTop="28dp"
-                android:src="@drawable/ic_launcher_foreground"
-                android:contentDescription="Maskot Game" />
-
-            <!-- Header Teks -->
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Siap Bertanding?"
-                android:textColor="#FFFFFF"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp" />
-
-            <TextView
-                android:id="@+id/tvSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Masuk dan tantang temanmu di Quiz Arena!"
-                android:textColor="#95CCDD"
-                android:textSize="14sp"
-                android:textAlignment="center"
-                android:layout_marginBottom="20dp" />
-
-            <!-- Card Form Login (Warna #95CCDD) -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#95CCDD"
+                app:cardBackgroundColor="#FFFFFF"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="6dp">
 
@@ -89,54 +97,50 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nama Pengguna / Email"
-                        android:textColorHint="#293681"
-                        app:boxBackgroundMode="filled"
-                        app:boxBackgroundColor="#FFFFFF"
+                        android:textColorHint="@color/gray"
+                        app:boxBackgroundMode="outline"
+                        app:boxBackgroundColor="#F8FAFC"
                         app:boxCornerRadiusTopStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="2dp"
-                        app:boxStrokeColor="#293681"
-                        app:hintTextColor="#293681">
+                        app:boxStrokeColor="@color/primary"
+                        app:hintTextColor="@color/primary">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etUsername"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
-                            android:textColor="#293681"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Input Password + Logo Mata Toggle -->
+                    <!-- Input Password + Toggle Mata -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="14dp"
                         android:hint="Kata Sandi"
-                        android:textColorHint="#293681"
+                        android:textColorHint="@color/gray"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="#293681"
-                        app:boxBackgroundMode="filled"
-                        app:boxBackgroundColor="#FFFFFF"
+                        app:passwordToggleTint="@color/primary"
+                        app:boxBackgroundMode="outline"
+                        app:boxBackgroundColor="#F8FAFC"
                         app:boxCornerRadiusTopStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="2dp"
-                        app:boxStrokeColor="#293681"
-                        app:hintTextColor="#293681">
+                        app:boxStrokeColor="@color/primary"
+                        app:hintTextColor="@color/primary">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
-                            android:textColor="#293681"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,7 +148,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp">
+                        android:layout_marginTop="10dp">
 
                         <CheckBox
                             android:id="@+id/cbRememberMe"
@@ -153,9 +157,9 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:text="Ingat Saya"
-                            android:textColor="#293681"
+                            android:textColor="@color/black"
                             android:textSize="13sp"
-                            android:buttonTint="#293681" />
+                            android:buttonTint="@color/primary" />
 
                         <TextView
                             android:id="@+id/tvForgotPassword"
@@ -164,23 +168,23 @@
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:text="Lupa Kata Sandi?"
-                            android:textColor="#293681"
+                            android:textColor="@color/secondary"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             android:padding="4dp" />
                     </RelativeLayout>
 
                     <!-- Tombol Login Utama -->
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnLogin"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="18dp"
                         android:text="MASUK &amp; BERTANDING"
                         android:textColor="#FFFFFF"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
-                        android:backgroundTint="#4274D9"
+                        app:backgroundTint="@color/primary"
                         app:cornerRadius="14dp" />
 
                     <!-- Pembatas Atau -->
@@ -188,44 +192,45 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginVertical="12dp"
+                        android:layout_marginVertical="14dp"
                         android:text="— ATAU —"
-                        android:textColor="#293681"
+                        android:textColor="@color/gray"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <!-- Tombol Login Google -->
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnGoogleLogin"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:text="Masuk dengan Google"
-                        android:textColor="#293681"
+                        android:textColor="@color/primary"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        app:strokeColor="#293681"
+                        app:strokeColor="@color/primary"
                         app:strokeWidth="1.5dp"
                         app:cornerRadius="14dp"
                         app:icon="@android:drawable/ic_menu_compass"
-                        app:iconTint="#293681"
+                        app:iconTint="@color/primary"
                         app:iconGravity="textStart" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Navigasi ke Halaman Register/Daftar -->
+            <!-- Navigasi ke Halaman Register -->
             <TextView
                 android:id="@+id/tvRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
                 android:text="Belum punya akun? Daftar Akun"
-                android:textColor="#D0E7E6"
+                android:textColor="@color/primary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:padding="8dp" />
 
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>
