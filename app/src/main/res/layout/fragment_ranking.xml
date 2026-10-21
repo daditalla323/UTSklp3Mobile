@@ -26,6 +26,7 @@
             android:paddingBottom="52dp">
 
             <!-- Baris 1: Judul Kiri & Tombol Ikon Kanan -->
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -166,6 +167,7 @@
         </LinearLayout>
 
         <!-- 1. TAMPILAN TERBARU (KOSONG) - DISEMBUNYIKAN -->
+        <!-- 1. TAMPILAN TERBARU (SINKRON DENGAN RIWAYAT BATTLE) -->
         <LinearLayout
             android:id="@+id/layoutTerbaru"
             android:layout_width="match_parent"
@@ -175,7 +177,9 @@
             android:layout_marginTop="-30dp"
             android:visibility="gone">
 
+            <!-- KARTU EMPTY STATE (BILA BELUM ADA BERMAIN) -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardEmptyTerbaru"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="#FFFFFF"
@@ -210,7 +214,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Peringkat masih kosong untuk periode ini.\nJadilah yang pertama bermain dan raih posisi 1."
+                        android:text="Peringkat/Riwayat masih kosong untuk periode ini.\nJadilah yang pertama bermain dan raih posisi 1."
                         android:textColor="#95CCDD"
                         android:textSize="12sp"
                         android:textAlignment="center"
@@ -231,6 +235,15 @@
                         android:paddingVertical="12dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- RECYCLERVIEW UNTUK RIWAYAT BATTLE TERBARU (BILA SUDAH PERNAH BERMAIN) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTerbaru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone"
+                tools:listitem="@layout/item_history" />
         </LinearLayout>
 
         <!-- 2. TAMPILAN SEMUA (DAFTAR PERINGKAT) - DEFAULT MUNCUL -->
