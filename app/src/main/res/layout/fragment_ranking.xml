@@ -436,19 +436,32 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvRankingLainnyaCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="300+ pemain"
+                    android:text="Top Pemain"
                     android:textColor="#95CCDD"
                     android:textSize="12sp" />
             </LinearLayout>
+
+            <!-- Pesan jika tidak ada peringkat #4+ -->
+            <TextView
+                android:id="@+id/tvEmptyRankingLainnya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Belum ada peringkat lainnya (#4+)"
+                android:textColor="#757575"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:visibility="gone" />
 
             <!-- RecyclerView untuk Peringkat #4 ke bawah -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRanking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_ranking" />
 

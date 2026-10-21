@@ -28,6 +28,7 @@ public class RankingFragment extends Fragment {
 
     private RecyclerView rvRanking;
     private RankingAdapter rankingAdapter;
+    private TextView tvEmptyRankingLainnya;
 
     private RecyclerView rvTerbaru;
     private RankingAdapter terbaruAdapter;
@@ -78,7 +79,7 @@ public class RankingFragment extends Fragment {
             });
         }
 
-        // Inisialisasi Peringkat Terbaru (Menggunakan RankingAdapter agar menampilkan Peringkat Pemain)
+        // Inisialisasi Peringkat Terbaru
         cardEmptyTerbaru = view.findViewById(R.id.cardEmptyTerbaru);
         rvTerbaru = view.findViewById(R.id.rvTerbaru);
         if (rvTerbaru != null) {
@@ -87,8 +88,9 @@ public class RankingFragment extends Fragment {
             rvTerbaru.setAdapter(terbaruAdapter);
         }
 
-        // Inisialisasi Podium & List Semua
+        // Inisialisasi Podium & List Semua (#4 ke bawah)
         rvRanking = view.findViewById(R.id.rvRanking);
+        tvEmptyRankingLainnya = view.findViewById(R.id.tvEmptyRankingLainnya);
         tvPodium1Name = view.findViewById(R.id.tvPodium1Name);
         tvPodium1Points = view.findViewById(R.id.tvPodium1Points);
         tvPodium2Name = view.findViewById(R.id.tvPodium2Name);
@@ -108,6 +110,7 @@ public class RankingFragment extends Fragment {
                 updatePodiumAndList(list);
                 updateTerbaruRanking(list);
             } else {
+                updatePodiumAndList(new ArrayList<>());
                 updateTerbaruRanking(new ArrayList<>());
             }
         });
@@ -133,7 +136,19 @@ public class RankingFragment extends Fragment {
     }
 
     private void updatePodiumAndList(List<Ranking> list) {
-        if (list == null || list.isEmpty()) return;
+        if (list == null || list.isEmpty()) {
+            if (tvPodium1Name != null) tvPodium1Name.setText("-");
+            if (tvPodium1Points != null) tvPodium1Points.setText("0 Poin");
+            if (tvPodium2Name != null) tvPodium2Name.setText("-");
+            if (tvPodium2Points != null) tvPodium2Points.setText("0 Poin");
+            if (tvPodium3Name != null) tvPodium3Name.setText("-");
+            if (tvPodium3Points != null) tvPodium3Points.setText("0 Poin");
+
+            if (rankingAdapter != null) rankingAdapter.setRankingList(new ArrayList<>(), 4);
+            if (rvRanking != null) rvRanking.setVisibility(View.GONE);
+            if (tvEmptyRankingLainnya != null) tvEmptyRankingLainnya.setVisibility(View.VISIBLE);
+            return;
+        }
 
         // Podium Juara 1
         if (list.size() > 0 && tvPodium1Name != null) {
@@ -157,18 +172,23 @@ public class RankingFragment extends Fragment {
             Ranking r3 = list.get(2);
             tvPodium3Name.setText(r3.getNama());
             if (tvPodium3Points != null) tvPodium3Points.setText(r3.getTotalPoin() + " Poin");
-        } else if (tvPodium3Points != null) {
+        } else if (tvPodium3Name != null) {
             tvPodium3Name.setText("-");
             if (tvPodium3Points != null) tvPodium3Points.setText("0 Poin");
         }
 
-        // List Peringkat Lainnya
+        // List Peringkat Lainnya (#4 ke bawah)
         if (rankingAdapter != null) {
             if (list.size() > 3) {
                 List<Ranking> subList = new ArrayList<>(list.subList(3, list.size()));
                 rankingAdapter.setRankingList(subList, 4);
+                if (rvRanking != null) rvRanking.setVisibility(View.VISIBLE);
+                if (tvEmptyRankingLainnya != null) tvEmptyRankingLainnya.setVisibility(View.GONE);
             } else {
-                rankingAdapter.setRankingList(new ArrayList<>(list), 1);
+                // Jika tidak ada pemain rank 4 ke atas
+                rankingAdapter.setRankingList(new ArrayList<>(), 4);
+                if (rvRanking != null) rvRanking.setVisibility(View.GONE);
+                if (tvEmptyRankingLainnya != null) tvEmptyRankingLainnya.setVisibility(View.VISIBLE);
             }
         }
     }
