@@ -26,7 +26,6 @@
             android:paddingBottom="52dp">
 
             <!-- Baris 1: Judul Kiri & Tombol Ikon Kanan -->
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -166,8 +165,7 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <!-- 1. TAMPILAN TERBARU (KOSONG) - DISEMBUNYIKAN -->
-        <!-- 1. TAMPILAN TERBARU (SINKRON DENGAN RIWAYAT BATTLE) -->
+        <!-- 1. TAMPILAN TERBARU (LIST PERINGKAT TERBARU / RECENT RANKED PLAYERS) -->
         <LinearLayout
             android:id="@+id/layoutTerbaru"
             android:layout_width="match_parent"
@@ -205,7 +203,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Belum ada pemain"
+                        android:text="Peringkat Terbaru Kosong 🏆"
                         android:textColor="#293681"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -214,7 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Peringkat/Riwayat masih kosong untuk periode ini.\nJadilah yang pertama bermain dan raih posisi 1."
+                        android:text="Belum ada aktivitas tanding di periode terbaru ini.\nMulai bertanding sekarang dan jadilah Juara Terbaru!"
                         android:textColor="#95CCDD"
                         android:textSize="12sp"
                         android:textAlignment="center"
@@ -225,7 +223,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Mulai Battle"
+                        android:text="Mulai Battle ⚔️"
                         android:textColor="#FFFFFF"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -236,14 +234,14 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- RECYCLERVIEW UNTUK RIWAYAT BATTLE TERBARU (BILA SUDAH PERNAH BERMAIN) -->
+            <!-- RECYCLERVIEW UNTUK LIST PERINGKAT TERBARU -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTerbaru"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 android:visibility="gone"
-                tools:listitem="@layout/item_history" />
+                tools:listitem="@layout/item_ranking" />
         </LinearLayout>
 
         <!-- 2. TAMPILAN SEMUA (DAFTAR PERINGKAT) - DEFAULT MUNCUL -->

@@ -32,15 +32,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BattleHistory history = historyList.get(position);
 
-        String resultText = history.getHasil() != null ? history.getHasil().toUpperCase() : "N/A";
-        holder.tvResult.setText(resultText);
+        boolean isWin = "MENANG".equalsIgnoreCase(history.getHasil()) || "WIN".equalsIgnoreCase(history.getHasil());
 
-        if ("MENANG".equalsIgnoreCase(history.getHasil()) || "WIN".equalsIgnoreCase(history.getHasil())) {
-            holder.tvResult.setTextColor(Color.parseColor("#1B5E20"));
-            holder.tvResult.setBackgroundResource(R.drawable.bg_circle_accent_soft);
+        if (isWin) {
+            holder.tvResult.setText("🏆 MENANG");
+            holder.tvResult.setTextColor(Color.parseColor("#15803D"));
+            holder.tvResult.setBackgroundResource(R.drawable.bg_badge_win);
         } else {
-            holder.tvResult.setTextColor(Color.parseColor("#B71C1C"));
-            holder.tvResult.setBackgroundResource(R.drawable.bg_circle_accent_bright);
+            holder.tvResult.setText("💔 KALAH");
+            holder.tvResult.setTextColor(Color.parseColor("#B91C1C"));
+            holder.tvResult.setBackgroundResource(R.drawable.bg_badge_loss);
         }
 
         holder.tvMatkul.setText(history.getMataKuliah() != null ? history.getMataKuliah() : "Quiz Arena");

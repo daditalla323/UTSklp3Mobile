@@ -19,6 +19,7 @@ public class HistoryFragment extends Fragment {
 
     private HistoryViewModel historyViewModel;
     private RecyclerView rvHistory;
+    private View layoutEmptyHistory;
     private HistoryAdapter historyAdapter;
 
     @Nullable
@@ -32,14 +33,25 @@ public class HistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rvHistory = view.findViewById(R.id.rvHistory);
+        layoutEmptyHistory = view.findViewById(R.id.layoutEmptyHistory);
+
         historyAdapter = new HistoryAdapter();
-        rvHistory.setLayoutManager(new LinearLayoutManager(requireContext()));
-        rvHistory.setAdapter(historyAdapter);
+        if (rvHistory != null) {
+            rvHistory.setLayoutManager(new LinearLayoutManager(requireContext()));
+            rvHistory.setAdapter(historyAdapter);
+        }
 
         historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
         historyViewModel.getHistoryList().observe(getViewLifecycleOwner(), list -> {
-            if (list != null) {
-                historyAdapter.setHistoryList(list);
+            if (list != null && !list.isEmpty()) {
+                if (layoutEmptyHistory != null) layoutEmptyHistory.setVisibility(View.GONE);
+                if (rvHistory != null) {
+                    rvHistory.setVisibility(View.VISIBLE);
+                    historyAdapter.setHistoryList(list);
+                }
+            } else {
+                if (layoutEmptyHistory != null) layoutEmptyHistory.setVisibility(View.VISIBLE);
+                if (rvHistory != null) rvHistory.setVisibility(View.GONE);
             }
         });
     }
