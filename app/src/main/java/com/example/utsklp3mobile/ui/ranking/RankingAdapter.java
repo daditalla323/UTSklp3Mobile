@@ -14,10 +14,16 @@ import java.util.List;
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> {
 
     private List<Ranking> rankingList = new ArrayList<>();
+    private int startRank = 4;
+
+    public void setRankingList(List<Ranking> list, int startRank) {
+        this.rankingList = list != null ? list : new ArrayList<>();
+        this.startRank = startRank;
+        notifyDataSetChanged();
+    }
 
     public void setRankingList(List<Ranking> list) {
-        this.rankingList = list;
-        notifyDataSetChanged();
+        setRankingList(list, 4);
     }
 
     @NonNull
@@ -31,13 +37,16 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Ranking ranking = rankingList.get(position);
         if (holder.tvRankNumber != null) {
-            holder.tvRankNumber.setText(String.valueOf(position + 4));
+            holder.tvRankNumber.setText(String.valueOf(position + startRank));
         }
         if (holder.tvPlayerName != null) {
-            holder.tvPlayerName.setText(ranking.getNama() != null ? ranking.getNama() : "Player");
+            holder.tvPlayerName.setText(ranking.getNama() != null ? ranking.getNama() : "Pemain");
+        }
+        if (holder.tvPlayerMatkul != null) {
+            holder.tvPlayerMatkul.setText(ranking.getJumlahMenang() + " Kemenangan");
         }
         if (holder.tvScore != null) {
-            holder.tvScore.setText(ranking.getTotalPoin() + " Poin");
+            holder.tvScore.setText(String.valueOf(ranking.getTotalPoin()));
         }
     }
 

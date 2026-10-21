@@ -1,5 +1,6 @@
 package com.example.utsklp3mobile.ui.ranking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.utsklp3mobile.R;
+import com.example.utsklp3mobile.data.model.BattleHistory;
 import com.example.utsklp3mobile.data.model.Ranking;
+import com.example.utsklp3mobile.data.repository.BattleRepository;
+import com.example.utsklp3mobile.ui.battle.BattleActivity;
+import com.example.utsklp3mobile.ui.history.HistoryAdapter;
 import com.example.utsklp3mobile.viewmodel.RankingViewModel;
 
 import java.util.ArrayList;
@@ -23,8 +28,14 @@ import java.util.List;
 public class RankingFragment extends Fragment {
 
     private RankingViewModel rankingViewModel;
+    private BattleRepository battleRepository;
+
     private RecyclerView rvRanking;
     private RankingAdapter rankingAdapter;
+
+    private RecyclerView rvTerbaru;
+    private HistoryAdapter historyAdapter;
+    private View cardEmptyTerbaru;
 
     private TextView tvPodium1Name, tvPodium1Points;
     private TextView tvPodium2Name, tvPodium2Points;
@@ -40,6 +51,8 @@ public class RankingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        battleRepository = new BattleRepository(requireContext());
+
         // Inisialisasi komponen Filter
         TextView btnTerbaru = view.findViewById(R.id.btnFilterTerbaru);
         TextView btnSemua = view.findViewById(R.id.btnFilterSemua);
@@ -52,6 +65,7 @@ public class RankingFragment extends Fragment {
                 layoutTerbaru.setVisibility(View.VISIBLE);
                 btnTerbaru.setAlpha(1.0f);
                 btnSemua.setAlpha(0.6f);
+                loadTerbaruData();
             });
 
             btnSemua.setOnClickListener(v -> {
@@ -62,7 +76,25 @@ public class RankingFragment extends Fragment {
             });
         }
 
-        // Inisialisasi Podium & List
+        // Tombol Mulai Battle di Empty State
+        View btnStartBattle = view.findViewById(R.id.btnStartBattle);
+        if (btnStartBattle != null) {
+            btnStartBattle.setOnClickListener(v -> {
+                Intent intent = new Intent(requireContext(), BattleActivity.class);
+                startActivity(intent);
+            });
+        }
+
+        // Inisialisasi Riwayat Terbaru
+        cardEmptyTerbaru = view.findViewById(R.id.cardEmptyTerbaru);
+        rvTerbaru = view.findViewById(R.id.rvTerbaru);
+        if (rvTerbaru != null) {
+            historyAdapter = new HistoryAdapter();
+            rvTerbaru.setLayoutManager(new LinearLayoutManager(requireContext()));
+            rvTerbaru.setAdapter(historyAdapter);
+        }
+
+        // Inisialisasi Podium & List Semua
         rvRanking = view.findViewById(R.id.rvRanking);
         tvPodium1Name = view.findViewById(R.id.tvPodium1Name);
         tvPodium1Points = view.findViewById(R.id.tvPodium1Points);
@@ -91,31 +123,59 @@ public class RankingFragment extends Fragment {
         if (rankingViewModel != null) {
             rankingViewModel.loadRanking();
         }
+        loadTerbaruData();
+    }
+
+    private void loadTerbaruData() {
+        if (battleRepository == null) return;
+        List<BattleHistory> histories = battleRepository.getAllHistory();
+        if (histories == null || histories.isEmpty()) {
+            if (cardEmptyTerbaru != null) cardEmptyTerbaru.setVisibility(View.VISIBLE);
+            if (rvTerbaru != null) rvTerbaru.setVisibility(View.GONE);
+        } else {
+            if (cardEmptyTerbaru != null) cardEmptyTerbaru.setVisibility(View.GONE);
+            if (rvTerbaru != null) rvTerbaru.setVisibility(View.VISIBLE);
+            if (historyAdapter != null) historyAdapter.setHistoryList(histories);
+        }
     }
 
     private void updatePodiumAndList(List<Ranking> list) {
+        if (list == null || list.isEmpty()) return;
+
+        // Podium Juara 1
         if (list.size() > 0 && tvPodium1Name != null) {
             Ranking r1 = list.get(0);
             tvPodium1Name.setText(r1.getNama());
             if (tvPodium1Points != null) tvPodium1Points.setText(r1.getTotalPoin() + " Poin");
         }
+
+        // Podium Juara 2
         if (list.size() > 1 && tvPodium2Name != null) {
             Ranking r2 = list.get(1);
             tvPodium2Name.setText(r2.getNama());
             if (tvPodium2Points != null) tvPodium2Points.setText(r2.getTotalPoin() + " Poin");
+        } else if (tvPodium2Name != null) {
+            tvPodium2Name.setText("-");
+            if (tvPodium2Points != null) tvPodium2Points.setText("0 Poin");
         }
+
+        // Podium Juara 3
         if (list.size() > 2 && tvPodium3Name != null) {
             Ranking r3 = list.get(2);
             tvPodium3Name.setText(r3.getNama());
             if (tvPodium3Points != null) tvPodium3Points.setText(r3.getTotalPoin() + " Poin");
+        } else if (tvPodium3Name != null) {
+            tvPodium3Name.setText("-");
+            if (tvPodium3Points != null) tvPodium3Points.setText("0 Poin");
         }
 
+        // List Peringkat Lainnya
         if (rankingAdapter != null) {
             if (list.size() > 3) {
                 List<Ranking> subList = new ArrayList<>(list.subList(3, list.size()));
-                rankingAdapter.setRankingList(subList);
+                rankingAdapter.setRankingList(subList, 4);
             } else {
-                rankingAdapter.setRankingList(new ArrayList<>());
+                rankingAdapter.setRankingList(new ArrayList<>(list), 1);
             }
         }
     }
