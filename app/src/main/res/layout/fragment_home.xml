@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,20 +15,18 @@
         android:paddingTop="20dp"
         android:paddingBottom="90dp">
 
-        <!-- ================= 1. HEADER (GREETING KIRI & CARD PROFIL KANAN) ================= -->
-        <RelativeLayout
+        <!-- ================= 1. HEADER ================= -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <!-- Sapaan (Pojok Kiri Top) -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="12dp"
-                android:layout_toStartOf="@id/cardProfileRight"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -36,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:text="Selamat Pagi! 👋"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -48,36 +47,32 @@
                     android:textSize="13sp" />
             </LinearLayout>
 
-            <!-- Card Profil Mini (Pojok Kanan Top) -->
+            <!-- Profil mini berbentuk pill -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardProfileRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="#F0F4FF"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/primary"
-                app:strokeWidth="1dp">
+                app:cardBackgroundColor="@color/background"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingStart="6dp"
-                    android:paddingTop="6dp"
-                    android:paddingEnd="14dp"
-                    android:paddingBottom="6dp">
+                    android:paddingStart="12dp"
+                    android:paddingEnd="35dp"
+                    android:paddingVertical="6dp">
 
-                    <!-- Avatar Icon / Circle -->
                     <ImageView
                         android:id="@+id/ivProfileHeaderBg"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:background="@drawable/bg_circle_avatar_1"
                         android:padding="8dp"
                         android:src="@drawable/ic_person"
@@ -86,7 +81,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="8dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -95,41 +90,53 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="Pemain"
+                            android:maxWidth="80dp"
+                            android:text="Nur Hafsa"
                             android:textColor="@color/black"
-                            android:textSize="13sp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvHomePoints"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            android:text="0 Pts"
+                            android:text="⭐ 300 Pts"
                             android:textColor="@color/primary"
                             android:textSize="11sp"
                             android:textStyle="bold" />
-
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-        </RelativeLayout>
+        </LinearLayout>
 
-
-        <!-- ================= 2. HERO CARD (START BATTLE BANNER) ================= -->
+        <!-- ================= 2. HERO CARD ================= -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardStartBattle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="28dp"
+            android:clickable="true"
+            android:focusable="true"
             app:cardBackgroundColor="@color/primary"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="2dp">
+            app:cardCornerRadius="28dp"
+            app:cardElevation="4dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:padding="22dp">
+
+                <!-- Ikon besar sebagai dekorasi -->
+                <TextView
+                    android:id="@+id/tvHeroIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.95"
+                    android:rotation="-12"
+                    android:text="⚔️"
+                    android:textSize="64sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -142,15 +149,18 @@
                         android:layout_height="wrap_content"
                         android:text="Tantang Teman &amp;\nUji Kemampuanmu!"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="19sp"
                         android:textStyle="bold"
-                        android:lineSpacingExtra="2dp" />
+                        android:lineSpacingExtra="3dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPlayNow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="16dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:paddingHorizontal="20dp"
                         android:text="Main Sekarang!"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
@@ -159,33 +169,24 @@
                         app:cornerRadius="20dp"
                         app:strokeWidth="0dp" />
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvHeroIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="⚔️"
-                    android:textSize="58sp" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
-
-        <!-- ================= 3. CATEGORY (MATA KULIAH CHIPS) ================= -->
+        <!-- ================= 3. MATA KULIAH ================= -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pilih Mata Kuliah"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="28dp"
+            android:clipToPadding="false"
             android:scrollbars="none">
 
             <LinearLayout
@@ -239,12 +240,11 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-
-        <!-- ================= 4. FRIENDLIST (TEMAN ONLINE) ================= -->
+        <!-- ================= 4. TEMAN ONLINE ================= -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="14dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -252,7 +252,7 @@
                 android:layout_alignParentStart="true"
                 android:text="Teman Online"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -261,6 +261,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:padding="4dp"
                 android:text="+ Cari Teman"
                 android:textColor="@color/secondary"
                 android:textSize="12sp"
@@ -270,7 +271,7 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="28dp"
             android:scrollbars="none">
 
             <LinearLayout
@@ -278,46 +279,104 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/bg_circle_avatar_1"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_person" />
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/bg_circle_avatar_2"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_person" />
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_circle_avatar_1"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_person" />
 
-                <ImageView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/bg_circle_avatar_3"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_person" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Teman 1"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+                </LinearLayout>
 
-                <ImageView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/bg_circle_avatar_4"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_person" />
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_circle_avatar_2"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_person" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Teman 2"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_circle_avatar_3"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_person" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Teman 3"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_circle_avatar_4"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_person" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Teman 4"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+                </LinearLayout>
             </LinearLayout>
         </HorizontalScrollView>
 
-
-        <!-- ================= 5. MODE PERMAINAN (DISCOVERY) ================= -->
+        <!-- ================= 5. MODE PERMAINAN ================= -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="14dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -325,7 +384,7 @@
                 android:layout_alignParentStart="true"
                 android:text="Mode Permainan"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -334,6 +393,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:padding="4dp"
                 android:text="Lihat Semua"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
@@ -344,18 +404,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!-- Card 1: Ranked Arena -->
+            <!-- Ranked Arena -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardRankedBattle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="#F8FAFC"
-                app:cardCornerRadius="20dp"
+                app:cardCornerRadius="22dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#E2E8F0">
+                app:strokeColor="#E2E8F0"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -374,7 +436,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:text="Ranked Arena"
                         android:textColor="@color/primary"
                         android:textSize="14sp"
@@ -383,25 +445,28 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="3dp"
+                        android:lineSpacingExtra="2dp"
                         android:text="Kurangi HP lawan dan kumpulkan poin!"
                         android:textColor="@color/gray"
                         android:textSize="11sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 2: AI Quiz Generator -->
+            <!-- AI Challenge -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAiQuiz"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="#F8FAFC"
-                app:cardCornerRadius="20dp"
+                app:cardCornerRadius="22dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#E2E8F0">
+                app:strokeColor="#E2E8F0"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -420,7 +485,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:text="AI Challenge"
                         android:textColor="@color/primary"
                         android:textSize="14sp"
@@ -429,7 +494,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="3dp"
+                        android:lineSpacingExtra="2dp"
                         android:text="Soal kuis otomatis buatan AI!"
                         android:textColor="@color/gray"
                         android:textSize="11sp" />
