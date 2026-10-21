@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.utsklp3mobile.R;
 import com.example.utsklp3mobile.ui.battle.BattleActivity;
+import com.example.utsklp3mobile.ui.friend.SearchFriendActivity;
 import com.example.utsklp3mobile.ui.main.MainActivity;
 import com.example.utsklp3mobile.viewmodel.HomeViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -92,10 +93,12 @@ public class HomeFragment extends Fragment {
             ivProfileHeaderBg.setOnClickListener(goToProfileListener);
         }
 
-        // Toast info saat "+ Cari Teman" ditekan
+        // Navigasi ke SearchFriendActivity saat "+ Cari Teman" ditekan
         if (tvAddFriend != null) {
             tvAddFriend.setOnClickListener(v -> {
-                Toast.makeText(requireContext(), "Fitur Cari Teman segera hadir!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(requireContext(), SearchFriendActivity.class);
+                intent.putExtra("USER_NAME", currentUserName);
+                startActivity(intent);
             });
         }
 
