@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.utsklp3mobile.R;
+import com.example.utsklp3mobile.ui.main.MainActivity;
 import com.example.utsklp3mobile.viewmodel.ProfileViewModel;
 
 public class ProfileFragment extends Fragment {
@@ -24,6 +25,7 @@ public class ProfileFragment extends Fragment {
     private TextView tvAvatarInitials, tvProfileName, tvProfileStatus;
     private TextView tvTotalBattles, tvTotalWins, tvTotalPoints;
     private TextView tvHistoryCount, tvEmptyHistory;
+    private TextView btnGoLeaderboard;
     private RecyclerView rvHistory;
 
     @Nullable
@@ -39,11 +41,21 @@ public class ProfileFragment extends Fragment {
         tvTotalPoints = view.findViewById(R.id.tvTotalPoints);
         tvHistoryCount = view.findViewById(R.id.tvHistoryCount);
         tvEmptyHistory = view.findViewById(R.id.tvEmptyHistory);
+        btnGoLeaderboard = view.findViewById(R.id.btnGoLeaderboard);
         rvHistory = view.findViewById(R.id.rvHistory);
 
         rvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
         historyAdapter = new HistoryAdapter();
         rvHistory.setAdapter(historyAdapter);
+
+        // Tombol cepat ke halaman Leaderboard / Ranking
+        if (btnGoLeaderboard != null) {
+            btnGoLeaderboard.setOnClickListener(v -> {
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).selectTab(1); // Posisi 1 adalah Ranking/Leaderboard
+                }
+            });
+        }
 
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 

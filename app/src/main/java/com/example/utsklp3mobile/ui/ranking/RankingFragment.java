@@ -15,11 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.utsklp3mobile.R;
-import com.example.utsklp3mobile.data.model.BattleHistory;
 import com.example.utsklp3mobile.data.model.Ranking;
-import com.example.utsklp3mobile.data.repository.BattleRepository;
 import com.example.utsklp3mobile.ui.battle.BattleActivity;
-import com.example.utsklp3mobile.ui.history.HistoryAdapter;
 import com.example.utsklp3mobile.viewmodel.RankingViewModel;
 
 import java.util.ArrayList;
@@ -28,13 +25,13 @@ import java.util.List;
 public class RankingFragment extends Fragment {
 
     private RankingViewModel rankingViewModel;
-    private BattleRepository battleRepository;
 
     private RecyclerView rvRanking;
     private RankingAdapter rankingAdapter;
+    private TextView tvEmptyRankingLainnya;
 
     private RecyclerView rvTerbaru;
-    private HistoryAdapter historyAdapter;
+    private RankingAdapter terbaruAdapter;
     private View cardEmptyTerbaru;
 
     private TextView tvPodium1Name, tvPodium1Points;
@@ -51,8 +48,6 @@ public class RankingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        battleRepository = new BattleRepository(requireContext());
-
         // Inisialisasi komponen Filter
         TextView btnTerbaru = view.findViewById(R.id.btnFilterTerbaru);
         TextView btnSemua = view.findViewById(R.id.btnFilterSemua);
@@ -65,7 +60,6 @@ public class RankingFragment extends Fragment {
                 layoutTerbaru.setVisibility(View.VISIBLE);
                 btnTerbaru.setAlpha(1.0f);
                 btnSemua.setAlpha(0.6f);
-                loadTerbaruData();
             });
 
             btnSemua.setOnClickListener(v -> {
@@ -85,17 +79,18 @@ public class RankingFragment extends Fragment {
             });
         }
 
-        // Inisialisasi Riwayat Terbaru
+        // Inisialisasi Peringkat Terbaru
         cardEmptyTerbaru = view.findViewById(R.id.cardEmptyTerbaru);
         rvTerbaru = view.findViewById(R.id.rvTerbaru);
         if (rvTerbaru != null) {
-            historyAdapter = new HistoryAdapter();
+            terbaruAdapter = new RankingAdapter();
             rvTerbaru.setLayoutManager(new LinearLayoutManager(requireContext()));
-            rvTerbaru.setAdapter(historyAdapter);
+            rvTerbaru.setAdapter(terbaruAdapter);
         }
 
-        // Inisialisasi Podium & List Semua
+        // Inisialisasi Podium & List Semua (#4 ke bawah)
         rvRanking = view.findViewById(R.id.rvRanking);
+        tvEmptyRankingLainnya = view.findViewById(R.id.tvEmptyRankingLainnya);
         tvPodium1Name = view.findViewById(R.id.tvPodium1Name);
         tvPodium1Points = view.findViewById(R.id.tvPodium1Points);
         tvPodium2Name = view.findViewById(R.id.tvPodium2Name);
@@ -113,6 +108,10 @@ public class RankingFragment extends Fragment {
         rankingViewModel.getRankingList().observe(getViewLifecycleOwner(), list -> {
             if (list != null && !list.isEmpty()) {
                 updatePodiumAndList(list);
+                updateTerbaruRanking(list);
+            } else {
+                updatePodiumAndList(new ArrayList<>());
+                updateTerbaruRanking(new ArrayList<>());
             }
         });
     }
@@ -123,24 +122,33 @@ public class RankingFragment extends Fragment {
         if (rankingViewModel != null) {
             rankingViewModel.loadRanking();
         }
-        loadTerbaruData();
     }
 
-    private void loadTerbaruData() {
-        if (battleRepository == null) return;
-        List<BattleHistory> histories = battleRepository.getAllHistory();
-        if (histories == null || histories.isEmpty()) {
+    private void updateTerbaruRanking(List<Ranking> list) {
+        if (list == null || list.isEmpty()) {
             if (cardEmptyTerbaru != null) cardEmptyTerbaru.setVisibility(View.VISIBLE);
             if (rvTerbaru != null) rvTerbaru.setVisibility(View.GONE);
         } else {
             if (cardEmptyTerbaru != null) cardEmptyTerbaru.setVisibility(View.GONE);
             if (rvTerbaru != null) rvTerbaru.setVisibility(View.VISIBLE);
-            if (historyAdapter != null) historyAdapter.setHistoryList(histories);
+            if (terbaruAdapter != null) terbaruAdapter.setRankingList(list, 1);
         }
     }
 
     private void updatePodiumAndList(List<Ranking> list) {
-        if (list == null || list.isEmpty()) return;
+        if (list == null || list.isEmpty()) {
+            if (tvPodium1Name != null) tvPodium1Name.setText("-");
+            if (tvPodium1Points != null) tvPodium1Points.setText("0 Poin");
+            if (tvPodium2Name != null) tvPodium2Name.setText("-");
+            if (tvPodium2Points != null) tvPodium2Points.setText("0 Poin");
+            if (tvPodium3Name != null) tvPodium3Name.setText("-");
+            if (tvPodium3Points != null) tvPodium3Points.setText("0 Poin");
+
+            if (rankingAdapter != null) rankingAdapter.setRankingList(new ArrayList<>(), 4);
+            if (rvRanking != null) rvRanking.setVisibility(View.GONE);
+            if (tvEmptyRankingLainnya != null) tvEmptyRankingLainnya.setVisibility(View.VISIBLE);
+            return;
+        }
 
         // Podium Juara 1
         if (list.size() > 0 && tvPodium1Name != null) {
@@ -169,13 +177,18 @@ public class RankingFragment extends Fragment {
             if (tvPodium3Points != null) tvPodium3Points.setText("0 Poin");
         }
 
-        // List Peringkat Lainnya
+        // List Peringkat Lainnya (#4 ke bawah)
         if (rankingAdapter != null) {
             if (list.size() > 3) {
                 List<Ranking> subList = new ArrayList<>(list.subList(3, list.size()));
                 rankingAdapter.setRankingList(subList, 4);
+                if (rvRanking != null) rvRanking.setVisibility(View.VISIBLE);
+                if (tvEmptyRankingLainnya != null) tvEmptyRankingLainnya.setVisibility(View.GONE);
             } else {
-                rankingAdapter.setRankingList(new ArrayList<>(list), 1);
+                // Jika tidak ada pemain rank 4 ke atas
+                rankingAdapter.setRankingList(new ArrayList<>(), 4);
+                if (rvRanking != null) rvRanking.setVisibility(View.GONE);
+                if (tvEmptyRankingLainnya != null) tvEmptyRankingLainnya.setVisibility(View.VISIBLE);
             }
         }
     }
