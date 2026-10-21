@@ -7,6 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.utsklp3mobile.ui.history.HistoryFragment;
 import com.example.utsklp3mobile.ui.home.HomeFragment;
+import com.example.utsklp3mobile.ui.profile.ProfileFragment;
 import com.example.utsklp3mobile.ui.ranking.RankingFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
@@ -25,6 +26,8 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 return new RankingFragment();
             case 2:
                 return new HistoryFragment();
+            case 3:
+                return new ProfileFragment();
             default:
                 return new HomeFragment();
         }
@@ -32,6 +35,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 }

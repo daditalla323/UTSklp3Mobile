@@ -1,293 +1,526 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="#F5F7FB">
+    android:background="#F4F6FA"
+    android:padding="16dp">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="24dp">
+        android:layout_height="match_parent"
+        android:layout_above="@id/btnNextQuestion"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
-        <!-- Top Header Battle -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_header_curve"
-            android:paddingStart="20dp"
-            android:paddingTop="24dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="36dp">
-
-            <TextView
-                android:id="@+id/tvBattleMatkul"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="Pemrograman Mobile"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvBattleVersus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvBattleMatkul"
-                android:layout_marginTop="4dp"
-                android:text="Pemain vs Bot AI"
-                android:textColor="#95CCDD"
-                android:textSize="13sp" />
-        </RelativeLayout>
-
-        <!-- Container HP Progress Bars -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"
-            android:orientation="horizontal"
-            android:paddingHorizontal="20dp">
+            android:orientation="vertical">
 
-            <!-- Player HP -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
+            <!-- 1. TOP BAR (Subject Pill Left, Question Counter Right, Exit Cross Right) -->
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="14dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
+
+                <!-- Subject Pill -->
+                <TextView
+                    android:id="@+id/tvMatkulBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="#E2E8F0"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="6dp"
+                    android:text="Pemrograman Mobile · Ranked"
+                    android:textColor="#2D3748"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <!-- Exit Button Cross -->
+                <TextView
+                    android:id="@+id/btnExitBattle"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="✕"
+                    android:textColor="#718096"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Question Counter Pill -->
+                <TextView
+                    android:id="@+id/tvQuestionCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    android:layout_toStartOf="@id/btnExitBattle"
+                    android:background="#E2E8F0"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:text="Soal 1/4"
+                    android:textColor="#2D3748"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <!-- 2. VS HEALTH BAR CARD (Dark Blue Card #1F2251) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="#1F2251"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <!-- PLAYER SIDE (LEFT) -->
+                    <LinearLayout
+                        android:id="@+id/layoutPlayer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/badgeVs"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Avatar Circle Player -->
+                            <TextView
+                                android:id="@+id/tvPlayerAvatar"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_avatar"
+                                android:gravity="center"
+                                android:text="D"
+                                android:textColor="#1F2251"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <!-- Player Name -->
+                            <TextView
+                                android:id="@+id/tvPlayerName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:background="#2C326B"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="4dp"
+                                android:text="Dadi"
+                                android:textColor="#E2E8F0"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Player HP Bar -->
+                        <ProgressBar
+                            android:id="@+id/pbPlayerHp"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:layout_marginTop="10dp"
+                            android:max="100"
+                            android:progress="85"
+                            android:progressTint="#10B981" />
+
+                        <!-- Player HP Text -->
+                        <TextView
+                            android:id="@+id/tvPlayerHp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:background="#2C326B"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="2dp"
+                            android:text="85 HP"
+                            android:textColor="#A0AEC0"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                    <!-- VS BADGE (CENTER) -->
+                    <TextView
+                        android:id="@+id/badgeVs"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginHorizontal="8dp"
+                        android:background="@drawable/bg_pill_yellow"
+                        android:gravity="center"
+                        android:text="VS"
+                        android:textColor="#1F2251"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- ENEMY SIDE (RIGHT) -->
+                    <LinearLayout
+                        android:id="@+id/layoutEnemy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/badgeVs"
+                        android:gravity="end"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Enemy Name -->
+                            <TextView
+                                android:id="@+id/tvEnemyName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:background="#2C326B"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="4dp"
+                                android:text="Rina"
+                                android:textColor="#E2E8F0"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <!-- Avatar Circle Enemy -->
+                            <TextView
+                                android:id="@+id/tvEnemyAvatar"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_avatar"
+                                android:gravity="center"
+                                android:text="R"
+                                android:textColor="#1F2251"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Enemy HP Bar -->
+                        <ProgressBar
+                            android:id="@+id/pbEnemyHp"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:layout_marginTop="10dp"
+                            android:max="100"
+                            android:progress="100"
+                            android:progressTint="#F59E0B" />
+
+                        <!-- Enemy HP Text -->
+                        <TextView
+                            android:id="@+id/tvEnemyHp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:background="#2C326B"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="2dp"
+                            android:text="100 HP"
+                            android:textColor="#A0AEC0"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3. NOTICE / FEEDBACK BANNER (Light pink/soft red banner) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFeedbackBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#FFF0F2"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/tvFeedbackText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp"
+                    android:text="Pilih jawaban yang benar untuk menyerang HP lawan!"
+                    android:textColor="#2D3748"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- 4. QUESTION CARD (White Rounded Card) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardQuestionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="20dp">
 
+                    <!-- Topic Badge -->
                     <TextView
-                        android:id="@+id/tvPlayerName"
+                        android:id="@+id/tvTopicBadge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kamu"
-                        android:textColor="#293681"
-                        android:textSize="13sp"
+                        android:background="#E2E8F0"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="5dp"
+                        android:text="Dart &amp; Flutter"
+                        android:textColor="#2D3748"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
-                    <ProgressBar
-                        android:id="@+id/pbPlayerHp"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="12dp"
-                        android:layout_marginTop="6dp"
-                        android:max="100"
-                        android:progress="100"
-                        android:progressDrawable="@drawable/bg_rank_circle" />
-
+                    <!-- Question Text -->
                     <TextView
-                        android:id="@+id/tvPlayerHp"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvQuestionText"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="HP: 100"
-                        android:textColor="#757575"
-                        android:textSize="11sp" />
+                        android:layout_marginTop="12dp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="Widget apa yang paling tepat untuk menyusun tampilan secara vertikal di Flutter?"
+                        android:textColor="#1F2251"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <!-- 4 OPTION BUTTONS (A, B, C, D) -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+
+                        <!-- OPTION A -->
+                        <LinearLayout
+                            android:id="@+id/layoutOptA"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:background="@drawable/bg_option_default"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp">
+
+                            <TextView
+                                android:id="@+id/badgeOptA"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_option_badge"
+                                android:gravity="center"
+                                android:text="A"
+                                android:textColor="#718096"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvOptA"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="14dp"
+                                android:layout_weight="1"
+                                android:text="Row"
+                                android:textColor="#718096"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- OPTION B -->
+                        <LinearLayout
+                            android:id="@+id/layoutOptB"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_option_default"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp">
+
+                            <TextView
+                                android:id="@+id/badgeOptB"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_option_badge"
+                                android:gravity="center"
+                                android:text="B"
+                                android:textColor="#718096"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvOptB"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="14dp"
+                                android:layout_weight="1"
+                                android:text="Column"
+                                android:textColor="#718096"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- OPTION C -->
+                        <LinearLayout
+                            android:id="@+id/layoutOptC"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_option_default"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp">
+
+                            <TextView
+                                android:id="@+id/badgeOptC"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_option_badge"
+                                android:gravity="center"
+                                android:text="C"
+                                android:textColor="#718096"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvOptC"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="14dp"
+                                android:layout_weight="1"
+                                android:text="Stack"
+                                android:textColor="#718096"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- OPTION D -->
+                        <LinearLayout
+                            android:id="@+id/layoutOptD"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_option_default"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp">
+
+                            <TextView
+                                android:id="@+id/badgeOptD"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_option_badge"
+                                android:gravity="center"
+                                android:text="D"
+                                android:textColor="#718096"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvOptD"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="14dp"
+                                android:layout_weight="1"
+                                android:text="Container"
+                                android:textColor="#718096"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Enemy HP -->
+            <!-- 5. BATTLE RESULT FINISHED CARD (Dialog Result) -->
             <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
+                android:id="@+id/cardBattleResult"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_weight="1"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="4dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="24dp">
 
                     <TextView
-                        android:id="@+id/tvEnemyName"
+                        android:id="@+id/tvResultStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bot AI"
-                        android:textColor="#C62828"
-                        android:textSize="13sp"
+                        android:text="🎉 KAMU MENANG!"
+                        android:textColor="#10B981"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
-                    <ProgressBar
-                        android:id="@+id/pbEnemyHp"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="12dp"
-                        android:layout_marginTop="6dp"
-                        android:max="100"
-                        android:progress="100" />
-
                     <TextView
-                        android:id="@+id/tvEnemyHp"
+                        android:id="@+id/tvResultPoints"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="HP: 100"
-                        android:textColor="#757575"
-                        android:textSize="11sp" />
+                        android:layout_marginTop="8dp"
+                        android:text="Poin Didapat: +35"
+                        android:textColor="#1F2251"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnFinishBattle"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Kembali ke Beranda"
+                        android:textColor="#FFFFFF"
+                        app:backgroundTint="#1F2251"
+                        app:cornerRadius="14dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
         </LinearLayout>
+    </ScrollView>
 
-        <!-- Card Soal Quiz -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardQuestionContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp">
+    <!-- 6. BOTTOM ACTION BUTTON ("Soal berikutnya") -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNextQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:text="Soal berikutnya"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#1F2251"
+        app:cornerRadius="16dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/tvQuestionNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pertanyaan Quiz"
-                    android:textColor="#4274D9"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvQuestionText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Komponen Android manakah yang digunakan sebagai UI container/screen utama?"
-                    android:textColor="#293681"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnOptA"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="A. Activity"
-                        android:textAlignment="viewStart"
-                        android:textColor="#293681"
-                        app:backgroundTint="#F0F4FF"
-                        app:cornerRadius="12dp"
-                        app:strokeColor="#293681"
-                        app:strokeWidth="1dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnOptB"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="B. Service"
-                        android:textAlignment="viewStart"
-                        android:textColor="#293681"
-                        app:backgroundTint="#F0F4FF"
-                        app:cornerRadius="12dp"
-                        app:strokeColor="#293681"
-                        app:strokeWidth="1dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnOptC"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="C. Broadcast Receiver"
-                        android:textAlignment="viewStart"
-                        android:textColor="#293681"
-                        app:backgroundTint="#F0F4FF"
-                        app:cornerRadius="12dp"
-                        app:strokeColor="#293681"
-                        app:strokeWidth="1dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnOptD"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="D. Content Provider"
-                        android:textAlignment="viewStart"
-                        android:textColor="#293681"
-                        app:backgroundTint="#F0F4FF"
-                        app:cornerRadius="12dp"
-                        app:strokeColor="#293681"
-                        app:strokeWidth="1dp" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Card Result Finished -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardBattleResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="6dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="24dp">
-
-                <TextView
-                    android:id="@+id/tvResultStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🎉 KAMU MENANG!"
-                    android:textColor="#2E7D32"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvResultPoints"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Poin Didapat: +35"
-                    android:textColor="#293681"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnFinishBattle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Kembali ke Beranda"
-                    android:textColor="#FFFFFF"
-                    app:backgroundTint="#293681"
-                    app:cornerRadius="14dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-</ScrollView>
+</RelativeLayout>

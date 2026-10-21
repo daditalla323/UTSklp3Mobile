@@ -16,9 +16,9 @@
 
         <!-- ================= 1. HEADER (GREETING KIRI & CARD PROFIL KANAN) ================= -->
         <RelativeLayout
-            android:layout_width="369dp"
-            android:layout_height="126dp"
-            android:layout_marginBottom="20dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
 
             <!-- Sapaan (Pojok Kiri Top) -->
             <LinearLayout
@@ -51,74 +51,67 @@
             <!-- Card Profil Mini (Pojok Kanan Top) -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardProfileRight"
-                android:layout_width="115dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                app:cardBackgroundColor="@color/background"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="#F0F4FF"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/primary"
+                app:strokeWidth="1dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="106dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="6dp">
 
-                    <!-- Ilustrasi / Avatar di Bagian Atas Card -->
+                    <!-- Avatar Icon / Circle -->
+                    <ImageView
+                        android:id="@+id/ivProfileHeaderBg"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_circle_avatar_1"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_person"
+                        app:tint="@color/primary" />
 
-                    <!-- Inner White Card untuk Nama & Poin di Bawah -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_margin="8dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="14dp"
-                        app:cardElevation="1dp"
-                        app:strokeWidth="0dp">
+                        android:layout_marginStart="10dp"
+                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="113dp"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="8dp">
+                        <TextView
+                            android:id="@+id/tvProfileName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Pemain"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/tvProfileName"
-                                android:layout_width="58dp"
-                                android:layout_height="22dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Nur Hafsa"
-                                android:textColor="@color/black"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tvHomePoints"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:text="0 Pts"
+                            android:textColor="@color/primary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/tvHomePoints"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="300 Pts"
-                                android:textColor="@color/primary"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:id="@+id/ivProfileHeaderBg"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/bg_circle_avatar_1"
-                                android:padding="8dp"
-                                android:src="@drawable/ic_person"
-                                app:tint="@color/primary" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </RelativeLayout>
 

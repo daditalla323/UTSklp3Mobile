@@ -23,8 +23,8 @@ import com.google.android.material.card.MaterialCardView;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private TextView tvHomeUserName, tvHomePoints, tvProfileName;
-    private MaterialCardView cardStartBattle, cardProfileRight;
+    private TextView tvHomeUserName, tvProfileName, tvHomePoints;
+    private MaterialCardView cardProfileRight, cardStartBattle, cardRankedBattle, cardAiQuiz;
     private MaterialButton btnPlayNow;
     private ImageView ivProfileHeaderBg;
 
@@ -43,28 +43,32 @@ public class HomeFragment extends Fragment {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        // Inisialisasi View sesuai ID XML layout terbaru
         tvHomeUserName = view.findViewById(R.id.tvHomeUserName);
-        tvHomePoints = view.findViewById(R.id.tvHomePoints);
         tvProfileName = view.findViewById(R.id.tvProfileName);
+        tvHomePoints = view.findViewById(R.id.tvHomePoints);
+
         cardProfileRight = view.findViewById(R.id.cardProfileRight);
         ivProfileHeaderBg = view.findViewById(R.id.ivProfileHeaderBg);
         cardStartBattle = view.findViewById(R.id.cardStartBattle);
+        cardRankedBattle = view.findViewById(R.id.cardRankedBattle);
+        cardAiQuiz = view.findViewById(R.id.cardAiQuiz);
         btnPlayNow = view.findViewById(R.id.btnPlayNow);
 
         if (getActivity() instanceof MainActivity) {
             currentUserName = ((MainActivity) getActivity()).getUserName();
         }
 
-        tvHomeUserName.setText("Selamat Pagi, " + currentUserName + "! 👋");
+        if (tvHomeUserName != null) {
+            tvHomeUserName.setText("Selamat Pagi, " + currentUserName + "! 👋");
+        }
         if (tvProfileName != null) {
             tvProfileName.setText(currentUserName);
         }
 
-        // Klik foto/card profil untuk menuju ke halaman Profile (tab ke-3)
+        // Navigasi ke ProfileFragment saat profil ditekan
         View.OnClickListener goToProfileListener = v -> {
             if (getActivity() instanceof MainActivity) {
-                ((MainActivity) getActivity()).selectTab(2);
+                ((MainActivity) getActivity()).selectTab(3);
             }
         };
 
@@ -78,12 +82,13 @@ public class HomeFragment extends Fragment {
         // Observe ViewModel User Data
         homeViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
             if (user != null) {
-                String ptsText = user.getTotalPoin() + " Pts";
-                tvHomePoints.setText(ptsText);
+                if (tvHomePoints != null) {
+                    tvHomePoints.setText(user.getTotalPoin() + " Pts");
+                }
             }
         });
 
-        // Event klik tombol Main Sekarang / Banner Battle
+        // Event Tombol Mulai Battle
         View.OnClickListener startBattleListener = v -> {
             Intent intent = new Intent(requireContext(), BattleActivity.class);
             intent.putExtra("USER_NAME", currentUserName);
@@ -91,12 +96,10 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         };
 
-        if (cardStartBattle != null) {
-            cardStartBattle.setOnClickListener(startBattleListener);
-        }
-        if (btnPlayNow != null) {
-            btnPlayNow.setOnClickListener(startBattleListener);
-        }
+        if (cardStartBattle != null) cardStartBattle.setOnClickListener(startBattleListener);
+        if (btnPlayNow != null) btnPlayNow.setOnClickListener(startBattleListener);
+        if (cardRankedBattle != null) cardRankedBattle.setOnClickListener(startBattleListener);
+        if (cardAiQuiz != null) cardAiQuiz.setOnClickListener(startBattleListener);
     }
 
     @Override
