@@ -16,7 +16,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "QuizBattleArena.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Tabel Users
     private static final String TABLE_USERS = "users";
@@ -30,6 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Tabel History
     private static final String TABLE_HISTORY = "battle_history";
     private static final String COL_HISTORY_ID = "id";
+    private static final String COL_HISTORY_USER_NAME = "user_name";
     private static final String COL_HISTORY_LAWAN = "lawan";
     private static final String COL_HISTORY_MATKUL = "mata_kuliah";
     private static final String COL_HISTORY_HASIL = "hasil";
@@ -48,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createUsers = "CREATE TABLE " + TABLE_USERS + " (" +
+        String createUsers = "CREATE TABLE IF NOT EXISTS " + TABLE_USERS + " (" +
                 COL_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL_USER_NAMA + " TEXT, " +
                 COL_USER_POIN + " INTEGER DEFAULT 0, " +
@@ -57,8 +58,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_USER_MAIN + " INTEGER DEFAULT 0)";
         db.execSQL(createUsers);
 
-        String createHistory = "CREATE TABLE " + TABLE_HISTORY + " (" +
+        String createHistory = "CREATE TABLE IF NOT EXISTS " + TABLE_HISTORY + " (" +
                 COL_HISTORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_HISTORY_USER_NAME + " TEXT, " +
                 COL_HISTORY_LAWAN + " TEXT, " +
                 COL_HISTORY_MATKUL + " TEXT, " +
                 COL_HISTORY_HASIL + " TEXT, " +
@@ -75,10 +77,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRIENDS);
-        onCreate(db);
+        try {
+            db.execSQL("ALTER TABLE " + TABLE_HISTORY + " ADD COLUMN " + COL_HISTORY_USER_NAME + " TEXT");
+        } catch (Exception ignored) {
+            // Kolom sudah ada
+        }
     }
 
     // ========== USER ==========
@@ -95,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public User getUserByName(String nama) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_USERS, null, COL_USER_NAMA + "=?", new String[]{nama}, null, null, null);
+        Cursor cursor = db.query(TABLE_USERS, null, "LOWER(" + COL_USER_NAMA + ") = LOWER(?)", new String[]{nama}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             User user = new User(
                     cursor.getInt(cursor.getColumnIndexOrThrow(COL_USER_ID)),
@@ -108,6 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.close();
             return user;
         }
+        if (cursor != null) cursor.close();
         return null;
     }
 
@@ -123,7 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } else {
                 values.put(COL_USER_KALAH, user.getJumlahKalah() + 1);
             }
-            db.update(TABLE_USERS, values, COL_USER_NAMA + "=?", new String[]{nama});
+            db.update(TABLE_USERS, values, "LOWER(" + COL_USER_NAMA + ") = LOWER(?)", new String[]{nama});
         }
     }
 
@@ -148,15 +152,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // ========== HISTORY ==========
-    public void insertHistory(String lawan, String mataKuliah, String hasil, int poin, String tanggal) {
+    public void insertHistory(String userName, String lawan, String mataKuliah, String hasil, int poin, String tanggal) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COL_HISTORY_USER_NAME, userName);
         values.put(COL_HISTORY_LAWAN, lawan);
         values.put(COL_HISTORY_MATKUL, mataKuliah);
         values.put(COL_HISTORY_HASIL, hasil);
         values.put(COL_HISTORY_POIN, poin);
         values.put(COL_HISTORY_TANGGAL, tanggal);
         db.insert(TABLE_HISTORY, null, values);
+    }
+
+    public List<BattleHistory> getHistoryByUser(String userName) {
+        List<BattleHistory> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        if (userName == null || userName.trim().isEmpty()) {
+            return getAllHistory();
+        }
+
+        // Migrasi otomatis untuk riwayat pertandingan lama yang nilai user_name nya masih NULL
+        try {
+            SQLiteDatabase wdb = this.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put(COL_HISTORY_USER_NAME, userName);
+            wdb.update(TABLE_HISTORY, cv, COL_HISTORY_USER_NAME + " IS NULL OR " + COL_HISTORY_USER_NAME + " = ''", null);
+        } catch (Exception ignored) {}
+
+        String selection = "LOWER(" + COL_HISTORY_USER_NAME + ") = LOWER(?) OR " + COL_HISTORY_USER_NAME + " IS NULL";
+        String[] selectionArgs = new String[]{userName.trim()};
+
+        Cursor cursor = db.query(TABLE_HISTORY, null, selection, selectionArgs, null, null, COL_HISTORY_ID + " DESC");
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                BattleHistory history = new BattleHistory(
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COL_HISTORY_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COL_HISTORY_LAWAN)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COL_HISTORY_MATKUL)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COL_HISTORY_HASIL)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COL_HISTORY_POIN)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COL_HISTORY_TANGGAL))
+                );
+                list.add(history);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return list;
     }
 
     public List<BattleHistory> getAllHistory() {
@@ -184,16 +226,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<User> searchUsersByNickname(String query, String currentUserName) {
         List<User> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        
-        // Buat tabel teman jika belum ada
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_FRIENDS + " (" +
-                COL_FRIEND_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_FRIEND_USER_NAME + " TEXT, " +
-                COL_FRIEND_NAME + " TEXT)");
 
-        String selection = COL_USER_NAMA + " LIKE ? AND " + COL_USER_NAMA + " != ?";
+        String selection = COL_USER_NAMA + " LIKE ? AND LOWER(" + COL_USER_NAMA + ") != LOWER(?)";
         String[] selectionArgs = new String[]{"%" + query + "%", currentUserName};
-        
+
         Cursor cursor = db.query(TABLE_USERS, null, selection, selectionArgs, null, null, COL_USER_NAMA + " ASC");
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -226,13 +262,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean isFriend(String currentUserName, String friendName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_FRIENDS + " (" +
-                COL_FRIEND_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_FRIEND_USER_NAME + " TEXT, " +
-                COL_FRIEND_NAME + " TEXT)");
-
         Cursor cursor = db.query(TABLE_FRIENDS, null,
-                COL_FRIEND_USER_NAME + "=? AND " + COL_FRIEND_NAME + "=?",
+                "LOWER(" + COL_FRIEND_USER_NAME + ") = LOWER(?) AND LOWER(" + COL_FRIEND_NAME + ") = LOWER(?)",
                 new String[]{currentUserName, friendName}, null, null, null);
         boolean exists = (cursor != null && cursor.getCount() > 0);
         if (cursor != null) cursor.close();

@@ -19,14 +19,17 @@ public class HistoryViewModel extends AndroidViewModel {
     public HistoryViewModel(@NonNull Application application) {
         super(application);
         battleRepository = new BattleRepository(application);
-        loadHistory();
     }
 
     public LiveData<List<BattleHistory>> getHistoryList() {
         return historyList;
     }
 
-    public void loadHistory() {
-        historyList.setValue(battleRepository.getAllHistory());
+    public void loadHistory(String userName) {
+        if (userName != null && !userName.isEmpty()) {
+            historyList.setValue(battleRepository.getHistoryByUser(userName));
+        } else {
+            historyList.setValue(battleRepository.getAllHistory());
+        }
     }
 }

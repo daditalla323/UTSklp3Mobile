@@ -61,44 +61,51 @@ public class RegisterActivity extends AppCompatActivity {
         String confirmPassword = etConfirmPassword.getText() != null ? etConfirmPassword.getText().toString().trim() : "";
 
         if (TextUtils.isEmpty(fullName)) {
-            etFullName.setError("Full name is required");
+            etFullName.setError("Nama lengkap wajib diisi");
             etFullName.requestFocus();
             return;
         }
 
         if (TextUtils.isEmpty(email)) {
-            etEmail.setError("Email is required");
+            etEmail.setError("Email wajib diisi");
             etEmail.requestFocus();
             return;
         }
 
         if (TextUtils.isEmpty(phone)) {
-            etPhone.setError("Phone number is required");
+            etPhone.setError("Nomor telepon wajib diisi");
             etPhone.requestFocus();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            etPassword.setError("Password is required");
+            etPassword.setError("Kata sandi wajib diisi");
             etPassword.requestFocus();
             return;
         }
 
         if (!password.equals(confirmPassword)) {
-            etConfirmPassword.setError("Passwords do not match");
+            etConfirmPassword.setError("Kata sandi tidak cocok");
             etConfirmPassword.requestFocus();
             return;
         }
 
         if (!cbTerms.isChecked()) {
-            Toast.makeText(this, "Please agree to the Terms & Privacy Policy", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Harap setujui Syarat & Kebijakan Privasi", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Simpan user ke database
+        // Cek apakah username/nama sudah pernah terdaftar di SQLite
+        if (userRepository.getUserByName(fullName) != null) {
+            etFullName.setError("Nama pengguna sudah terdaftar! Silakan gunakan nama lain atau masuk.");
+            etFullName.requestFocus();
+            return;
+        }
+
+        // Simpan user baru ke database
         userRepository.insertUser(fullName);
 
-        Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Akun berhasil dibuat! Selamat datang " + fullName, Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         intent.putExtra("USER_NAME", fullName);

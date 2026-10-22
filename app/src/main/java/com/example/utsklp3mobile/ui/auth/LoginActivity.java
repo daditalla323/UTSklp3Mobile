@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.utsklp3mobile.R;
+import com.example.utsklp3mobile.data.model.User;
 import com.example.utsklp3mobile.data.repository.UserRepository;
 import com.example.utsklp3mobile.ui.main.MainActivity;
 import com.google.android.material.textfield.TextInputEditText;
@@ -62,18 +63,26 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Ambil nama pengguna (sebelum @ jika memasukkan email)
+        // Ekstrak nama pengguna (sebelum @ jika berupa email)
         String userName = username.contains("@") ? username.split("@")[0] : username;
 
-        // Buat/ambil user di database
-        if (userRepository.getUserByName(userName) == null) {
-            userRepository.insertUser(userName);
+        // Pengecekan pendaftaran akun di database
+        User existingUser = userRepository.getUserByName(userName);
+        if (existingUser == null) {
+            existingUser = userRepository.getUserByName(username);
         }
 
-        Toast.makeText(this, "Login berhasil! Selamat datang " + userName, Toast.LENGTH_SHORT).show();
+        if (existingUser == null) {
+            Toast.makeText(this, "Akun belum terdaftar! Silakan daftar akun terlebih dahulu.", Toast.LENGTH_LONG).show();
+            etUsername.setError("Akun tidak ditemukan. Silakan daftar dulu.");
+            etUsername.requestFocus();
+            return;
+        }
+
+        Toast.makeText(this, "Login berhasil! Selamat datang " + existingUser.getNama(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.putExtra("USER_NAME", userName);
+        intent.putExtra("USER_NAME", existingUser.getNama());
         startActivity(intent);
         finish();
     }

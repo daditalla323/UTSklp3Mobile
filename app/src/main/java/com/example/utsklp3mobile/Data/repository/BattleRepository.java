@@ -13,8 +13,12 @@ public class BattleRepository {
         dbHelper = new DatabaseHelper(context);
     }
 
-    public void insertHistory(String lawan, String mataKuliah, String hasil, int poin, String tanggal) {
-        dbHelper.insertHistory(lawan, mataKuliah, hasil, poin, tanggal);
+    public void insertHistory(String userName, String lawan, String mataKuliah, String hasil, int poin, String tanggal) {
+        dbHelper.insertHistory(userName, lawan, mataKuliah, hasil, poin, tanggal);
+    }
+
+    public List<BattleHistory> getHistoryByUser(String userName) {
+        return dbHelper.getHistoryByUser(userName);
     }
 
     public List<BattleHistory> getAllHistory() {

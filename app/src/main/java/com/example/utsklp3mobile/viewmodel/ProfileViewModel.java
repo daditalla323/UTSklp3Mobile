@@ -40,6 +40,10 @@ public class ProfileViewModel extends AndroidViewModel {
         if (user != null) {
             userProfile.setValue(user);
         }
-        historyList.setValue(battleRepository.getAllHistory());
+        if (userName != null && !userName.isEmpty()) {
+            historyList.setValue(battleRepository.getHistoryByUser(userName));
+        } else {
+            historyList.setValue(battleRepository.getAllHistory());
+        }
     }
 }

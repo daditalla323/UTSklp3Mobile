@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.utsklp3mobile.data.repository.BattleRepository;
-import com.example.utsklp3mobile.data.repository.UserRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +15,6 @@ import java.util.Locale;
 public class BattleViewModel extends AndroidViewModel {
 
     private final BattleRepository battleRepository;
-    private final UserRepository userRepository;
 
     // LiveData untuk UI
     private final MutableLiveData<Integer> playerHp = new MutableLiveData<>(100);
@@ -33,7 +31,6 @@ public class BattleViewModel extends AndroidViewModel {
     public BattleViewModel(@NonNull Application application) {
         super(application);
         battleRepository = new BattleRepository(application);
-        userRepository = new UserRepository(application);
     }
 
     // ========== Getter LiveData ==========
@@ -125,10 +122,10 @@ public class BattleViewModel extends AndroidViewModel {
     private void saveBattleResult(String hasil, int poin, boolean isWin) {
         String tanggal = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(new Date());
 
-        // Simpan history
-        battleRepository.insertHistory(enemyName, selectedMatkul, hasil, poin, tanggal);
+        // Simpan history dengan mengaitkan nama user pemenang/pemain
+        battleRepository.insertHistory(currentUserName, enemyName, selectedMatkul, hasil, poin, tanggal);
 
-        // Update data user
+        // Update data user di database
         battleRepository.updateUserAfterBattle(currentUserName, isWin, poin);
     }
 

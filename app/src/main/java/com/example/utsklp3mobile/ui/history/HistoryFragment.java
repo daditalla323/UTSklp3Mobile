@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.utsklp3mobile.R;
+import com.example.utsklp3mobile.ui.main.MainActivity;
 import com.example.utsklp3mobile.viewmodel.HistoryViewModel;
 
 public class HistoryFragment extends Fragment {
@@ -41,7 +42,18 @@ public class HistoryFragment extends Fragment {
             rvHistory.setAdapter(historyAdapter);
         }
 
+        String userName = "Pemain";
+        if (getActivity() instanceof MainActivity) {
+            userName = ((MainActivity) getActivity()).getUserName();
+        } else if (getActivity() != null && getActivity().getIntent() != null) {
+            String intentUser = getActivity().getIntent().getStringExtra("USER_NAME");
+            if (intentUser != null && !intentUser.isEmpty()) {
+                userName = intentUser;
+            }
+        }
+
         historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
+        historyViewModel.loadHistory(userName);
         historyViewModel.getHistoryList().observe(getViewLifecycleOwner(), list -> {
             if (list != null && !list.isEmpty()) {
                 if (layoutEmptyHistory != null) layoutEmptyHistory.setVisibility(View.GONE);
@@ -60,7 +72,16 @@ public class HistoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (historyViewModel != null) {
-            historyViewModel.loadHistory();
+            String userName = "Pemain";
+            if (getActivity() instanceof MainActivity) {
+                userName = ((MainActivity) getActivity()).getUserName();
+            } else if (getActivity() != null && getActivity().getIntent() != null) {
+                String intentUser = getActivity().getIntent().getStringExtra("USER_NAME");
+                if (intentUser != null && !intentUser.isEmpty()) {
+                    userName = intentUser;
+                }
+            }
+            historyViewModel.loadHistory(userName);
         }
     }
 }

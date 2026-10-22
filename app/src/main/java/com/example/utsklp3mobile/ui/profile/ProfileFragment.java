@@ -59,8 +59,10 @@ public class ProfileFragment extends Fragment {
 
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
-        String userName = "Player";
-        if (getActivity() != null && getActivity().getIntent() != null) {
+        String userName = "Pemain";
+        if (getActivity() instanceof MainActivity) {
+            userName = ((MainActivity) getActivity()).getUserName();
+        } else if (getActivity() != null && getActivity().getIntent() != null) {
             String intentUser = getActivity().getIntent().getStringExtra("USER_NAME");
             if (intentUser != null && !intentUser.isEmpty()) {
                 userName = intentUser;
@@ -101,8 +103,10 @@ public class ProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (profileViewModel != null) {
-            String userName = "Player";
-            if (getActivity() != null && getActivity().getIntent() != null) {
+            String userName = "Pemain";
+            if (getActivity() instanceof MainActivity) {
+                userName = ((MainActivity) getActivity()).getUserName();
+            } else if (getActivity() != null && getActivity().getIntent() != null) {
                 String intentUser = getActivity().getIntent().getStringExtra("USER_NAME");
                 if (intentUser != null && !intentUser.isEmpty()) {
                     userName = intentUser;

@@ -187,6 +187,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (getActivity() instanceof MainActivity) {
+            currentUserName = ((MainActivity) getActivity()).getUserName();
+        }
         if (homeViewModel != null) {
             homeViewModel.loadUser(currentUserName);
         }
